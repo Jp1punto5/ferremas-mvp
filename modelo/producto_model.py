@@ -16,7 +16,8 @@ def obtener_productos():
             p.codigo_producto,
             p.nombre,
             p.descripcion,
-            p.precio,
+            p.precio_cl,
+            p.precio_usd,
             p.stock,
             p.url_foto,       
             c.nombre AS categoria
@@ -47,7 +48,8 @@ def obtener_producto(codigo_producto):
             p.codigo_producto,
             p.nombre,
             p.descripcion,
-            p.precio,
+            p.precio_cl,
+            p.precio_usd,
             p.stock,
             p.url_foto,
             c.nombre AS categoria
@@ -81,7 +83,8 @@ def listar_productosc(categoria):
             p.codigo_producto,
             p.nombre,
             p.descripcion,
-            p.precio,
+            p.precio_cl,
+            p.precio_usd,
             p.stock,
             p.url_foto,
             c.nombre AS categoria

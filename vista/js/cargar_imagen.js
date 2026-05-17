@@ -88,7 +88,7 @@ function mostrarProductos(productos)
 
         if(producto.stock <= 10)
             {
-                const precioFormateado = producto.precio.toLocaleString('es-CL');
+                const precioFormateado = producto.precio_cl.toLocaleString('es-CL');
                  const tarjeta = document.createElement(
                         'article'
                     );
@@ -117,7 +117,7 @@ function mostrarProductos(productos)
                             </p>
 
                             <p class="precio-usd">
-                                <h4>USD $0</h4>
+                                <h4>USD $${producto.precio_usd.toFixed(2)}</h4>
                             </p>
 
                             <p class="stock">

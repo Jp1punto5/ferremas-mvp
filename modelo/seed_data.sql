@@ -56,14 +56,14 @@ VALUES
 ('Seguridad');
 
 /* ========================================= */
-/* INSERTAR PRODUCTOS */
+/* INSERTAR PRODUCTOS, solo se inserta precio CL, el USD sera insertado por la API externa */
 /* ========================================= */
 
 INSERT INTO productos (
     codigo_producto,
     nombre,
     descripcion,
-    precio,
+    precio_CL,
     stock,
     url_foto,
     id_categoria

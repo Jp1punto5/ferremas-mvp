@@ -44,7 +44,8 @@ def productos():
             "codigo_producto": producto["codigo_producto"],
             "nombre": producto["nombre"],
             "descripcion": producto["descripcion"],
-            "precio": producto["precio"],
+            "precio_cl": producto["precio_cl"],
+            "precio_usd": producto["precio_usd"],
             "stock": producto["stock"],
             "url_foto": producto["url_foto"],
             "categoria": producto["categoria"]
@@ -64,7 +65,8 @@ def producto_individual(codigo_producto):
             "codigo_producto": producto["codigo_producto"],
             "nombre": producto["nombre"],
             "descripcion": producto["descripcion"],
-            "precio": producto["precio"],
+            "precio_cl": producto["precio_cl"],
+            "precio_usd": producto["precio_usd"],
             "stock": producto["stock"],
             "url_foto": producto["url_foto"],
             "categoria": producto["categoria"]
@@ -90,7 +92,8 @@ def productos_por_categoria(categoria):
             "codigo_producto": producto["codigo_producto"],
             "nombre": producto["nombre"],
             "descripcion": producto["descripcion"],
-            "precio": producto["precio"],
+            "precio_cl": producto["precio_cl"],
+            "precio_usd": producto["precio_usd"],
             "stock": producto["stock"],
             "url_foto": producto["url_foto"],
             "categoria": producto["categoria"]
