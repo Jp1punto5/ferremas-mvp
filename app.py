@@ -3,7 +3,8 @@ from flask_cors import CORS
 
 from modelo.producto_model import (
     obtener_productos,
-    obtener_producto
+    obtener_producto,
+    listar_productosc
 )
 from modelo.usuario_model import (
     obtener_usuario_por_correo,
@@ -72,6 +73,32 @@ def producto_individual(codigo_producto):
     return jsonify({
         "error": "Producto no encontrado"
     }), 404
+
+# =========================
+# OBTENER PRODUCTOS POR CATEGORIA   
+# =========================
+@app.route('/productos/categoria/<categoria>')
+def productos_por_categoria(categoria):
+
+    productos = listar_productosc(categoria)
+
+    lista_productos = []
+
+    for producto in productos:
+
+        lista_productos.append({
+            "codigo_producto": producto["codigo_producto"],
+            "nombre": producto["nombre"],
+            "descripcion": producto["descripcion"],
+            "precio": producto["precio"],
+            "stock": producto["stock"],
+            "url_foto": producto["url_foto"],
+            "categoria": producto["categoria"]
+        })
+
+    return jsonify(lista_productos)     
+
+
 
 
 #se crea endpoint de prueba para validar el proceso de login, utilizando un usuario que ya existe en la base de datos.

@@ -49,6 +49,7 @@ def obtener_producto(codigo_producto):
             p.descripcion,
             p.precio,
             p.stock,
+            p.url_foto,
             c.nombre AS categoria
         FROM productos p
         INNER JOIN categorias c
@@ -61,3 +62,37 @@ def obtener_producto(codigo_producto):
     conexion.close()
 
     return producto
+
+
+
+
+# =========================
+# OBTENER PRODUCTO por categoria
+# =========================
+
+def listar_productosc(categoria):
+
+    conexion = conectar()
+
+    cursor = conexion.cursor()
+
+    cursor.execute("""
+        SELECT
+            p.codigo_producto,
+            p.nombre,
+            p.descripcion,
+            p.precio,
+            p.stock,
+            p.url_foto,
+            c.nombre AS categoria
+        FROM productos p
+        INNER JOIN categorias c
+            ON p.id_categoria = c.id_categoria
+        WHERE c.nombre = ?
+    """, (categoria,))
+
+    productos = cursor.fetchall()
+
+    conexion.close()
+
+    return productos
