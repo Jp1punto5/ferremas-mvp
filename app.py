@@ -1,5 +1,10 @@
 from flask import Flask, jsonify
 
+from modelo.producto_model import (
+    obtener_productos,
+    obtener_producto
+)
+
 app = Flask(__name__)
 
 
@@ -16,6 +21,51 @@ def health():
         "status": "online",
         "app": "Ferremas MVP"
     })
+
+@app.route('/productos')
+def productos():
+
+    productos = obtener_productos()
+
+    lista_productos = []
+
+    for producto in productos:
+
+        lista_productos.append({
+            "codigo_producto": producto["codigo_producto"],
+            "nombre": producto["nombre"],
+            "descripcion": producto["descripcion"],
+            "precio": producto["precio"],
+            "stock": producto["stock"],
+            "categoria": producto["categoria"]
+        })
+
+    return jsonify(lista_productos)
+
+
+@app.route('/productos/<codigo_producto>')
+def producto_individual(codigo_producto):
+
+    producto = obtener_producto(codigo_producto)
+
+    if producto:
+
+        return jsonify({
+            "codigo_producto": producto["codigo_producto"],
+            "nombre": producto["nombre"],
+            "descripcion": producto["descripcion"],
+            "precio": producto["precio"],
+            "stock": producto["stock"],
+            "categoria": producto["categoria"]
+        })
+
+    return jsonify({
+        "error": "Producto no encontrado"
+    }), 404
+
+
+
+
 
 
 if __name__ == '__main__':
