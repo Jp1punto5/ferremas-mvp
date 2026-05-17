@@ -3,6 +3,9 @@ from modelo.conexion import conectar
 
 # =========================
 # OBTENER USUARIO POR CORREO
+
+# la finalidad de esta función es verificar si un correo ya está registrado en la base de datos,
+#  lo cual es útil para evitar registros duplicados y para validar el proceso de login.
 # =========================
 
 def obtener_usuario_por_correo(correo):
