@@ -10,8 +10,6 @@ venv/
 
 # SQLite
 *.db
-!ferremas.db
-
 # VS Code
 .vscode/
 
