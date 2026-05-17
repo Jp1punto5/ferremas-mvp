@@ -224,21 +224,129 @@
 }
 
 
+/* ========================================= */
+/* ASIDE RESUMEN */
+/* ========================================= */
+
+#resumenCompra {
+
+    display: none;
+
+}
+
 .total_productos {
 
-    width: 320px;
+    width: 45%;
 
-    min-width: 320px;
-
+    min-width: 420px;
+    max-width: 600px;
     background-color:
         rgba(255,255,255,0.92);
 
-    border-radius: 12px;
+    border-radius: 15px;
 
-    padding: 20px;
-
+    padding: 35px;
     height: fit-content;
 
     box-shadow:
         0 2px 10px rgba(0,0,0,0.15);
+    position: sticky;
+    top: 25px;
+}
+
+
+/* ========================================= */
+/* TOTAL */
+/* ========================================= */
+
+.valor-total {
+
+    font-size: 52px;
+
+    font-weight: bold;
+
+    color: var(--color-principal);
+
+    margin:
+        35px 0;
+
+    text-align: center;
+}
+
+
+/* ========================================= */
+/* BOTONES */
+/* ========================================= */
+
+.botones-pago {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 15px;
+}
+
+
+/* ========================================= */
+/* BOTONES GENERALES */
+/* ========================================= */
+
+.botones-pago button {
+
+    border: none;
+
+    border-radius: 10px;
+
+    padding: 15px;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+
+    color: white;
+}
+
+
+/* ========================================= */
+/* WEBPAY */
+/* ========================================= */
+
+.btn-webpay {
+
+    background-color: #27ae60;
+}
+
+
+/* ========================================= */
+/* TRANSFERENCIA */
+/* ========================================= */
+
+.btn-transferencia {
+
+    background-color: #2980b9;
+}
+
+
+/* ========================================= */
+/* LOGIN */
+/* ========================================= */
+
+.btn-login {
+
+    background-color: #f39c12;
+}
+
+
+/* ========================================= */
+/* HOVER */
+/* ========================================= */
+
+.botones-pago button:hover {
+
+    transform: scale(1.03);
 }
