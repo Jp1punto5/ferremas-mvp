@@ -4,6 +4,24 @@ document.addEventListener(
     () =>
     {
 
+
+        const botonCarrito = document.querySelector('.boton-carrito');
+          if (botonCarrito)
+            {
+                botonCarrito.addEventListener(
+                    'click',
+                    () =>
+                    {
+                        console.log(
+                            'Redireccionando carrito...'
+                        );
+
+                        window.location.href =
+                            'carrito.html';
+                    }
+                );
+            }  
+                 
         const parametros = new URLSearchParams(
             window.location.search
         );
