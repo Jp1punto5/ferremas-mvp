@@ -42,6 +42,8 @@ document.addEventListener(
     }
 );
 
+actualizarContadorCarrito();
+
 
 /* ========================================= */
 /* OBTENER PRODUCTOS DESDE API */
@@ -135,13 +137,24 @@ function mostrarProductos(productos)
                         </div>
                     `;
 
+                    /* ========================================= */
+                    /* AGREGAR AL CARRITO */
+                    /* ========================================= */ 
+                    tarjeta.querySelector(
+                        '.btn-agregar'
+                    ).addEventListener(
+                        'click',
+                        () =>
+                        {
+                            agregarProducto(producto);
+                        }
+                    );
+
+
                     grid.appendChild(tarjeta);
             }
 
-
-
-
-        
+       
     });
 }
 
@@ -151,3 +164,6 @@ function mostrarProductos(productos)
 /* ========================================= */
 
 cargarProductos();
+
+/*******************************************/
+

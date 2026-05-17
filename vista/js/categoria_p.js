@@ -48,6 +48,7 @@ async function cargarProductosDeCategoria(categoria)
     }
 }
 
+actualizarContadorCarrito();
 
 function categoriaProductos(productos)
 {
@@ -107,6 +108,20 @@ function categoriaProductos(productos)
                         </div>
                     `;
 
+
+                        /* ========================================= */
+                        /* AGREGAR AL CARRITO */
+                        /* ========================================= */ 
+                        tarjeta.querySelector(
+                            '.btn-agregar'
+                        ).addEventListener(
+                            'click',
+                            () =>
+                            {
+                                agregarProducto(producto);
+                            }
+                        );
+
                     grid.appendChild(tarjeta);
             
 
@@ -117,3 +132,4 @@ function categoriaProductos(productos)
     }); 
 
 }
+
