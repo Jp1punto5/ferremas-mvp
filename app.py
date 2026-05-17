@@ -4,6 +4,12 @@ from modelo.producto_model import (
     obtener_productos,
     obtener_producto
 )
+from modelo.usuario_model import (
+    obtener_usuario_por_correo,
+    validar_login,
+    registrar_usuario
+)
+
 
 app = Flask(__name__)
 
@@ -64,7 +70,27 @@ def producto_individual(codigo_producto):
     }), 404
 
 
+#se crea endpoint de prueba para validar el proceso de login, utilizando un usuario que ya existe en la base de datos.
 
+@app.route('/test-login')
+def test_login():
+
+    usuario = validar_login(
+        'cliente@ferremas.cl',
+        '123456'
+    )
+
+    if usuario:
+
+        return jsonify({
+            "success": True,
+            "usuario": usuario["nombre_completo"],
+            "rol": usuario["rol"]
+        })
+
+    return jsonify({
+        "success": False
+    })
 
 
 
