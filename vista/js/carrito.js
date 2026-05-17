@@ -1,4 +1,9 @@
 /* ========================================= */
+/* INICIAR */ 
+actualizarContadorCarrito();
+listarProductosCarrito();       
+
+/* ========================================= */
 /* OBTENER CARRITO */
 /* ========================================= */
 
@@ -137,4 +142,275 @@ function actualizarContadorCarrito()
     {
         contador.textContent = total;
     }
+}
+ 
+/* ========================================= */
+/* LISTAR PRODUCTOS CARRITO */
+/* ========================================= */
+
+function listarProductosCarrito()
+{
+
+    const carrito =
+        obtenerCarrito();
+
+
+    const grid =
+        document.getElementById(
+            'gridProductos'
+        );
+
+
+    grid.innerHTML = '';
+
+
+    /* ========================================= */
+    /* CARRITO VACIO */
+    /* ========================================= */
+
+    if (carrito.length === 0)
+    {
+
+        mostrarAlerta("No hay productos en el carrito","error");
+
+        return;
+    }
+
+
+    /* ========================================= */
+    /* RECORRER PRODUCTOS */
+    /* ========================================= */
+
+    carrito.forEach(
+        producto =>
+        {
+
+            const subtotal =
+                producto.precio *
+                producto.cantidad;
+
+
+            const precioFormateado =
+                producto.precio.toLocaleString(
+                    'es-CL'
+                );
+
+
+            const subtotalFormateado =
+                subtotal.toLocaleString(
+                    'es-CL'
+                );
+
+
+            const tarjeta =
+                document.createElement(
+                    'article'
+                );
+
+
+            tarjeta.classList.add(
+                'tarjeta-carrito'
+            );
+
+
+            tarjeta.innerHTML =
+            `
+                <img
+                    src="${producto.url_foto}"
+                    alt="${producto.nombre}"
+                    class="imagen-carrito"
+                >
+
+
+                <div class="info-carrito">
+
+                    <h3>
+                        ${producto.nombre}
+                    </h3>
+
+
+                    <p>
+                        Cantidad:
+                        <strong>
+                            x${producto.cantidad}
+                        </strong>
+                    </p>
+
+
+                    <p>
+                        Precio unitario:
+                        <strong>
+                            $${precioFormateado}
+                        </strong>
+                    </p>
+
+
+                    <p class="subtotal">
+                        Subtotal:
+                        <strong>
+                            $${subtotalFormateado}
+                        </strong>
+                    </p>
+
+
+                    <div class="acciones-carrito">
+
+                        <button class="btn-restar">
+
+                            <i class="fa-solid fa-minus"></i>
+
+                        </button>
+
+
+                        <button class="btn-eliminar">
+
+                            <i class="fa-solid fa-trash"></i>
+
+                        </button>
+
+                    </div>
+
+                </div>
+            `;
+
+
+                    /* ========================================= */
+                    /* BOTON RESTAR */
+                    /* ========================================= */
+
+                    tarjeta.querySelector(
+                        '.btn-restar'
+                    ).addEventListener(
+                        'click',
+                        () =>
+                        {
+                            descontarProducto(
+                                producto.codigo_producto
+                            );
+                        }
+                    );
+
+
+                    /* ========================================= */
+                    /* BOTON ELIMINAR */
+                    /* ========================================= */
+
+                    tarjeta.querySelector(
+                        '.btn-eliminar'
+                    ).addEventListener(
+                        'click',
+                        () =>
+                        {
+                            eliminarProducto(
+                                producto.codigo_producto
+                            );
+                        }
+                    );
+
+
+            console.log(tarjeta);
+            grid.appendChild(
+                tarjeta
+            );
+        }
+    );
+}
+
+
+
+/* ========================================= */
+/* DESCONTAR PRODUCTO */
+/* ========================================= */
+
+function descontarProducto(
+    codigoProducto
+)
+{
+
+    let carrito =
+        obtenerCarrito();
+
+
+    const producto =
+        carrito.find(
+            item =>
+                item.codigo_producto ===
+                codigoProducto
+        );
+
+
+    if (!producto)
+    {
+        return;
+    }
+
+
+    producto.cantidad--;
+
+
+    /* ========================================= */
+    /* ELIMINAR SI LLEGA A 0 */
+    /* ========================================= */
+
+    if (producto.cantidad <= 0)
+    {
+        carrito =
+            carrito.filter(
+                item =>
+                    item.codigo_producto !==
+                    codigoProducto
+            );
+    }
+
+
+    guardarCarrito(carrito);
+
+    actualizarContadorCarrito();
+
+
+    /* RECARGAR VISTA */
+
+    listarProductosCarrito();
+
+    actualizarTotalCompra();
+}
+
+
+/* ========================================= */
+/* ELIMINAR PRODUCTO */
+/* ========================================= */
+
+function eliminarProducto(
+    codigoProducto
+)
+{
+
+    let carrito =
+        obtenerCarrito();
+
+
+    carrito =
+        carrito.filter(
+            item =>
+                item.codigo_producto !==
+                codigoProducto
+        );
+
+
+    guardarCarrito(carrito);
+
+    actualizarContadorCarrito();
+
+
+    /* RECARGAR */
+
+    listarProductosCarrito();
+
+    actualizarTotalCompra();
+
+
+    mostrarAlerta(
+        'Producto eliminado',
+        'warning'
+    );
 }
