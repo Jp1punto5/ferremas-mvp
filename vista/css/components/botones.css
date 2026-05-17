@@ -63,3 +63,51 @@ button {
 
     color: white;
 }
+
+
+/* ======================================== */
+/* BOTON VOLVER */
+/* ======================================== */
+
+.contenedor-logo {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+}
+
+
+.boton-volver {
+
+    width: 45px;
+
+    height: 45px;
+
+    border-radius: 50%;
+
+    background-color: white;
+
+    color: var(--color-principal);
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-decoration: none;
+
+    font-size: 18px;
+
+    transition: 0.3s;
+}
+
+
+.boton-volver:hover {
+
+    transform: scale(1.08);
+
+    background-color: #f2f2f2;
+}
