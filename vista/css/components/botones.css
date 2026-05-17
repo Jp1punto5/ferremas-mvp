@@ -1,0 +1,65 @@
+button {
+
+    cursor: pointer;
+
+    border: none;
+
+    transition: 0.3s;
+}
+
+.btn-agregar {
+
+    width: 100%;
+
+    padding: 12px;
+
+    margin-top: 10px;
+
+    border-radius: 8px;
+
+    background-color: var(--color-principal);
+
+    color: white;
+
+    font-weight: bold;
+}
+
+.btn-agregar:hover {
+
+    opacity: 0.9;
+}
+
+/* ========================= */
+/* BOTONES CATEGORIAS */
+/* ========================= */
+
+.categoria-btn {
+
+    width: 100%;
+
+    padding: 12px;
+
+    border-radius: 8px;
+
+    background-color: #f0f0f0;
+
+    text-align: left;
+
+    font-weight: bold;
+
+    transition: 0.3s;
+}
+
+.categoria-btn:hover {
+
+    background-color: var(--color-principal);
+
+    color: white;
+}
+
+.categoria-activa {
+
+    background-color: var(--color-principal);
+
+    color: white;
+}

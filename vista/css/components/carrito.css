@@ -1,0 +1,41 @@
+.boton-carrito {
+
+    position: relative;
+
+    padding: 12px;
+
+    border-radius: 50%;
+
+    background-color: white;
+
+    color: var(--color-principal);
+
+    font-size: 20px;
+}
+
+#contador-carrito {
+
+    position: absolute;
+
+    top: -5px;
+
+    right: -5px;
+
+    background-color: red;
+
+    color: white;
+
+    width: 22px;
+
+    height: 22px;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 12px;
+}

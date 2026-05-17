@@ -1,0 +1,22 @@
+.menu-categorias {
+
+    width: 250px;
+
+    background-color: white;
+
+    padding: 20px;
+
+    border-radius: var(--border-radius);
+
+    box-shadow: var(--sombra-card);
+}
+
+.menu-categorias ul {
+
+    list-style: none;
+}
+
+.menu-categorias li {
+
+    margin-bottom: 10px;
+}

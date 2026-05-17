@@ -1,0 +1,19 @@
+@media (max-width: 768px) {
+
+    .contenedor-principal {
+
+        flex-direction: column;
+    }
+
+    .menu-categorias {
+
+        width: 100%;
+    }
+
+    .header-principal {
+
+        flex-direction: column;
+
+        gap: 15px;
+    }
+}

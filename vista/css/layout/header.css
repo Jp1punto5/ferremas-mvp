@@ -1,0 +1,19 @@
+.header-principal {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    padding: 20px;
+
+    background-color: var(--color-principal);
+
+    color: white;
+}
+
+.logo-ferremas {
+
+    width: 120px;
+}
