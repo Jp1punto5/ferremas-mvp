@@ -334,12 +334,49 @@
 /* LOGIN */
 /* ========================================= */
 
+.btn-login,
+.btn-logout {
+
+    width: 100%;
+
+    padding: 16px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    cursor: pointer;
+
+    font-size: 18px;
+
+    font-weight: bold;
+
+    color: white;
+
+    transition: 0.2s;
+}
+
 .btn-login {
 
     background-color: #f39c12;
 }
 
 
+.btn-login:hover {
+
+    background-color: #d68910;
+}
+
+.btn-logout {
+
+    background-color: #e74c3c;
+}
+
+
+.btn-logout:hover {
+
+    background-color: #c0392b;
+}
 /* ========================================= */
 /* HOVER */
 /* ========================================= */

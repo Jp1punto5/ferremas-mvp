@@ -455,16 +455,16 @@ function mostrarResumenCompra()
     /* ========================================= */
 
     let total = 0;
-        /* ========================================= */
-        /* VALIDAR USUARIO LOGEADO */
-        /* ========================================= */
+    /* ========================================= */
+    /* VALIDAR USUARIO LOGEADO */
+    /* ========================================= */
 
-        const usuarioLogeado =
-            JSON.parse(
-                sessionStorage.getItem(
-                    'usuarioLogeado'
-                )
-            );
+    const usuarioLogeado =
+        JSON.parse(
+            sessionStorage.getItem(
+                'usuarioLogeado'
+            )
+        );
 
 
  
@@ -477,6 +477,9 @@ function mostrarResumenCompra()
                 producto.cantidad;
         }
     );
+    /* ========================================= */
+    /* APLICAR DESCUENTO */
+    /* ========================================= */
         let descuento = 0;
         console.log("total= ",total);
         console.log(typeof total);
@@ -545,13 +548,29 @@ function mostrarResumenCompra()
             </button>
 
 
-            <button class="btn-login">
+            ${
+                usuarioLogeado
+                ?
+                `
+                    <button class="btn-logout">
 
-                <i class="fa-solid fa-user"></i>
+                        <i class="fa-solid fa-right-from-bracket"></i>
 
-                Iniciar sesión
+                        Cerrar sesión
 
-            </button>
+                    </button>
+                `
+                :
+                `
+                    <button class="btn-login">
+
+                        <i class="fa-solid fa-user"></i>
+
+                        Iniciar sesión
+
+                    </button>
+                `
+            }
 
         </div>
     `;
@@ -581,4 +600,51 @@ function mostrarResumenCompra()
             }
         );
     }
+
+    /* ========================================= */
+    /* BOTON CERRAR SESION */
+    /* ========================================= */
+
+    const botonLogout =
+        document.querySelector(
+            '.btn-logout'
+        );
+
+
+    if(botonLogout)
+    {
+        botonLogout.addEventListener(
+            'click',
+            cerrarSesion
+        );
+    }
+
+
+}
+
+/* ========================================= */
+/* CERRAR SESION */
+/* ========================================= */
+
+function cerrarSesion()
+{
+
+    sessionStorage.removeItem(
+        'usuarioLogeado'
+    );
+
+
+    mostrarAlerta(
+        'Sesión cerrada',
+        'success'
+    );
+
+
+    /* ========================================= */
+    /* RECARGAR COMPONENTES */
+    /* ========================================= */
+
+    mostrarResumenCompra();
+
+    mostrarUsuarioLogeado();
 }
