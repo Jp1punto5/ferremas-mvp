@@ -77,7 +77,7 @@ VALUES
 
 
 
--- Usuarios DEMO
+-- USUARIOS DEMO
 INSERT INTO usuarios
 (nombre_completo, correo, telefono, password_hash, rol)
 VALUES
