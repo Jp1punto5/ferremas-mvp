@@ -106,25 +106,49 @@ def productos_por_categoria(categoria):
 
 #se crea endpoint de prueba para validar el proceso de login, utilizando un usuario que ya existe en la base de datos.
 
-@app.route('/test-login')
-def test_login():
+@app.route(
+    '/login',
+    methods=['POST']
+)
+def login():
+
+    data = request.get_json()
+
+
+    correo = data.get('correo')
+
+    clave = data.get('clave')
+
 
     usuario = validar_login(
-        'cliente@ferremas.cl',
-        '123456'
+        correo,
+        clave
     )
+
 
     if usuario:
 
         return jsonify({
+
             "success": True,
-            "usuario": usuario["nombre_completo"],
-            "rol": usuario["rol"]
+
+            "usuario":
+                usuario["nombre_completo"],
+
+            "rol":
+                usuario["rol"]
+
         })
 
+
     return jsonify({
-        "success": False
-    })
+
+        "success": False,
+
+        "mensaje":
+            "Correo o contraseña incorrectos"
+
+    }), 401
 
 
 # Endpoint para registrar un nuevo usuario, se reciben los datos en formato JSON y se valida que el correo no esté registrado antes de crear el nuevo usuario.
