@@ -1,20 +1,21 @@
 
 
-CREATE TABLE usuarios (
+CREATE TABLE IF NOT EXISTS usuarios (
     id_usuario INTEGER PRIMARY KEY AUTOINCREMENT,
     nombre_completo TEXT NOT NULL,
     correo TEXT UNIQUE NOT NULL,
     telefono TEXT,
-    password_hash TEXT NOT NULL
+    password_hash TEXT NOT NULL,
+    rol TEXT NOT NULL
 );
 
-CREATE TABLE categorias (
+CREATE TABLE IF NOT EXISTS categorias (
     id_categoria INTEGER PRIMARY KEY AUTOINCREMENT,
     nombre TEXT NOT NULL
 );
 
-CREATE TABLE productos (
-    id_producto INTEGER PRIMARY KEY AUTOINCREMENT,
+CREATE TABLE IF NOT EXISTS productos (
+    codigo_producto TEXT PRIMARY KEY,
     nombre TEXT NOT NULL,
     descripcion TEXT,
     precio REAL NOT NULL,
