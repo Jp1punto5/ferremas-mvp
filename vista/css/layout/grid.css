@@ -5,11 +5,14 @@
     gap: 15px;
 
     padding: 20px;
+    align-items: flex-start;
 }
 
 .contenedor-productos {
 
     flex: 1;
+    min-width: 0;
+    max-width: 60%;
 }
 
 .grid-productos {
@@ -25,5 +28,5 @@
 
     gap: 15px;
 
-    width: 100%;
+   
 }

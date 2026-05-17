@@ -232,26 +232,24 @@
 
     display: none;
 
+
 }
 
 .total_productos {
 
-    width: 45%;
-
+    
+    flex: 0 0 45%;
+    top: 215px;
     min-width: 420px;
-    max-width: 600px;
+    max-width: 900px;
     background-color:
         rgba(255,255,255,0.92);
-
     border-radius: 15px;
-
     padding: 35px;
     height: fit-content;
-
     box-shadow:
         0 2px 10px rgba(0,0,0,0.15);
     position: sticky;
-    top: 25px;
 }
 
 
