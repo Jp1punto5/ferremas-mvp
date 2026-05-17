@@ -80,7 +80,7 @@ VALUES
     'Martillo profesional acero reforzado',
     7990,
     15,
-    'css/herramientas/martillo.png',
+    'img/herramientas/martillo.png',
     1
 ),
 
@@ -90,7 +90,7 @@ VALUES
     'Taladro 20V batería incluida',
     89990,
     8,
-    'css/herramientas/taladro.png',
+    'img/herramientas/taladro.png',
     1
 ),
 
@@ -100,7 +100,7 @@ VALUES
     'Caja metálica profesional',
     24990,
     10,
-    'css/herramientas/caja_herramientas.png',
+    'img/herramientas/caja_herramientas.png',
     1
 ),
 
@@ -114,7 +114,7 @@ VALUES
     'Cable 100 metros',
     15990,
     25,
-    'css/herramientas/cable_electrico.png',
+    'img/herramientas/cable_electrico.png',
     2
 ),
 
@@ -124,7 +124,7 @@ VALUES
     'Enchufe doble blanco',
     3990,
     40,
-    'css/herramientas/enchufe_doble.png',
+    'img/herramientas/enchufe_doble.png',
     2
 ),
 
@@ -134,7 +134,7 @@ VALUES
     'Interruptor simple',
     2990,
     35,
-    'css/herramientas/interruptor.png',
+    'img/herramientas/interruptor.png',
     2
 ),
 
@@ -148,7 +148,7 @@ VALUES
     'Cemento alta resistencia',
     5990,
     50,
-    'css/herramientas/saco_cemento.png',
+    'img/herramientas/saco_cemento.png',
     3
 ),
 
@@ -158,7 +158,7 @@ VALUES
     'Ladrillo cerámico',
     790,
     500,
-    'css/herramientas/ladrillo.png',
+    'img/herramientas/ladrillo.png',
     3
 ),
 
@@ -168,7 +168,7 @@ VALUES
     'Pala metálica reforzada',
     12990,
     20,
-    'css/herramientas/pala_construccion.png',
+    'img/herramientas/pala_construccion.png',
     3
 ),
 
@@ -182,7 +182,7 @@ VALUES
     'Rodillo profesional',
     4990,
     30,
-    'css/herramientas/rodillo_pintura.png',
+    'img/herramientas/rodillo_pintura.png',
     4
 ),
 
@@ -192,7 +192,7 @@ VALUES
     'Galón pintura interior',
     19990,
     18,
-    'css/herramientas/pintura_blanca.png',
+    'img/herramientas/pintura_blanca.png',
     4
 ),
 
@@ -202,7 +202,7 @@ VALUES
     'Brocha madera natural',
     2990,
     45,
-    'css/herramientas/brocha.png',
+    'img/herramientas/brocha.png',
     4
 ),
 
@@ -216,7 +216,7 @@ VALUES
     'Manguera flexible 20 metros',
     14990,
     12,
-    'css/herramientas/manguera.png',
+    'img/herramientas/manguera.png',
     5
 ),
 
@@ -226,7 +226,7 @@ VALUES
     'Tijera acero inoxidable',
     8990,
     16,
-    'css/herramientas/tijera_poda.png',
+    'img/herramientas/tijera_poda.png',
     5
 ),
 
@@ -236,7 +236,7 @@ VALUES
     'Macetero cerámico',
     6990,
     22,
-    'css/herramientas/macetero_grande.png',
+    'img/herramientas/macetero_grande.png',
     5
 ),
 
@@ -250,7 +250,7 @@ VALUES
     'Casco industrial amarillo',
     12990,
     14,
-    'css/herramientas/casco_seguridad.png',
+    'img/herramientas/casco_seguridad.png',
     6
 ),
 
@@ -260,7 +260,7 @@ VALUES
     'Guantes anticorte',
     5990,
     28,
-    'css/herramientas/guantes.png',
+    'img/herramientas/guantes.png',
     6
 ),
 
@@ -270,6 +270,6 @@ VALUES
     'Lentes transparentes',
     4990,
     25,
-    'css/herramientas/lentes_proteccion.png',
+    'img/herramientas/lentes_proteccion.png',
     6
 );
