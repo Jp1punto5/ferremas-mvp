@@ -1,4 +1,50 @@
 /* ========================================= */
+/* CAPTURAR BOTONES CATEGORIA */
+/* ========================================= */
+
+document.addEventListener(
+    'DOMContentLoaded',
+    () =>
+    {
+        const botonesCategoria =
+            document.querySelectorAll(
+                '.categoria-btn'
+            );
+
+
+        botonesCategoria.forEach(
+            boton =>
+            {
+                boton.addEventListener(
+                    'click',
+                    () =>
+                    {
+                        alert('Categoría seleccionada: ' + boton.dataset.categoria);
+                        const categoria =
+                            boton.dataset.categoria;
+
+
+                        console.log(
+                            'Categoría seleccionada:',
+                            categoria
+                        );
+
+
+                        /* ========================================= */
+                        /* REDIRECCIONAR */
+                        /* ========================================= */
+
+                        window.location.href =
+                            `categoria_p.html?categoria=${categoria}`;
+                    }
+                );
+            }
+        );
+    }
+);
+
+
+/* ========================================= */
 /* OBTENER PRODUCTOS DESDE API */
 /* ========================================= */
 
