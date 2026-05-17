@@ -19,7 +19,6 @@ document.addEventListener(
                     'click',
                     () =>
                     {
-                        alert('Categoría seleccionada: ' + boton.dataset.categoria);
                         const categoria =
                             boton.dataset.categoria;
 
