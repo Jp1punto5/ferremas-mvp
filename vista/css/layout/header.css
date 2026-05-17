@@ -6,14 +6,32 @@
 
     align-items: center;
 
-    padding: 20px;
+    padding: 10px;
 
-    background-color: var(--color-principal);
+    background-color: rgba(255, 122, 0, 0.95);
 
     color: white;
+
+    backdrop-filter: blur(4px);
+}
+
+.header-principal h1 {
+
+    font-size: 54px;
+
+    margin: 0;
+}
+
+.header-principal p {
+
+    font-size: 23px;
+
+    margin: 0;
 }
 
 .logo-ferremas {
 
-    width: 120px;
+    width: 260px;
+
+   mix-blend-mode: multiply;
 }
