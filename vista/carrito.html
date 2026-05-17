@@ -73,7 +73,7 @@
 
             <!-- TITULO DINAMICO -->
             <div id="tituloCompraTotal" style="display: none;" class="titulo-categoria">
-                <h2>Carrito de Compras</h2>
+                <h2 id="titulo_carrito">Carrito de Compras</h2>
             </div><br>
 
 
@@ -112,13 +112,16 @@
 
             <form>
 
-                <input type="email"
+                <input type="email" id="correoLogin"
                        placeholder="Correo electrónico">
 
-                <input type="password"
+                <input type="password" id="claveLogin"
                        placeholder="Contraseña">
 
-                <button type="submit">
+                <button     
+                type="button"
+                class="btn-modal"
+                id="btnIngresar">
                     Ingresar
                 </button>
 
@@ -128,7 +131,7 @@
 
             <h3>¿No tienes cuenta?</h3>
 
-            <button>
+            <button id="btnRegistrar">
                 Registrarse
             </button>
 
@@ -141,8 +144,9 @@
     <!-- JAVASCRIPT -->
     <!-- ======================================== -->
     <script src="js/mostrarAlerta.js"></script>
-     <script src="js/carrito.js"></script>
     <script src="js/modal_login.js"></script>
+    <script src="js/carrito.js"></script>
+    
     <div id="contenedor-alertas"></div>
 </body>
 </html>
