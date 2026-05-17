@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ferremas - Catálogo</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/main.css">
+
+    <!-- ICONOS -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+    <!-- ======================================== -->
+    <!-- HEADER PRINCIPAL -->
+    <!-- ======================================== -->
+
+    <header class="header-principal">
+
+        <!-- LOGO + BOTON VOLVER -->
+        <div class="contenedor-logo">
+
+            <a href="catalogo_p.html"
+            class="boton-volver">
+
+                <i class="fa-solid fa-arrow-left"></i>
+
+            </a>
+
+
+            <img src="img/logo-ferremas.png"
+                alt="Logo Ferremas"
+                class="logo-ferremas">
+
+        </div>
+
+        <!-- TITULO -->
+        <div class="contenedor-titulo">
+            <h1 id="tituloCategoria"></h1>
+        </div>
+
+        <!-- CARRITO -->
+        <div class="contenedor-carrito">
+
+            <button class="boton-carrito">
+                <i class="fa-solid fa-cart-shopping"></i>
+
+                <span id="contador-carrito">
+                    0
+                </span>
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- ======================================== -->
+    <!-- CONTENIDO PRINCIPAL -->
+    <!-- ======================================== -->
+
+    <main class="contenedor-principal">
+
+
+        <!-- ======================================== -->
+        <!-- SECCION PRODUCTOS -->
+        <!-- ======================================== -->
+
+        <section class="contenedor-productos">
+
+            <!-- TITULO DINAMICO -->
+            <div class="titulo-categoria">
+                <h2>Carrito de Compras</h2>
+            </div><br>
+
+
+            <!-- GRID PRODUCTOS -->
+            <div class="grid-productos" id="gridProductos">
+
+                <!-- TARJETA PRODUCTO -->
+                <!-- Se cargan automáticamente -->
+
+            </div>
+
+        </section>
+
+        
+        <aside class="total_productos">
+
+            <h2>Total a Pagar</h2><br>
+
+
+
+        </aside>
+
+    </main>
+
+    <!-- ======================================== -->
+    <!-- JAVASCRIPT -->
+    <!-- ======================================== -->
+    <script src="js/mostrarAlerta.js"></script>
+     <script src="js/carrito.js"></script>
+    
+    <div id="contenedor-alertas"></div>
+</body>
+</html>
