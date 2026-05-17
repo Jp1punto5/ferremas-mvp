@@ -2,9 +2,14 @@
 
     display: flex;
 
-    gap: 20px;
+    gap: 15px;
 
     padding: 20px;
+}
+
+.contenedor-productos {
+
+    flex: 1;
 }
 
 .grid-productos {
@@ -12,9 +17,13 @@
     display: grid;
 
     grid-template-columns:
-        repeat(auto-fill, minmax(250px, 1fr));
+        repeat(
+            auto-fit,
+            minmax(280px, 300px)
+        );
 
-    gap: 20px;
+
+    gap: 15px;
 
     width: 100%;
 }

@@ -22,10 +22,15 @@
 
     height: 220px;
 
-    object-fit: cover;
+    object-fit: contain;
+
+    background-color: white;
+
+    padding: 10px;
 }
 
 .info-producto {
 
     padding: 15px;
+    gap: 3px;
 }
