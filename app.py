@@ -43,6 +43,7 @@ def productos():
             "descripcion": producto["descripcion"],
             "precio": producto["precio"],
             "stock": producto["stock"],
+            "url_foto": producto["url_foto"],
             "categoria": producto["categoria"]
         })
 
@@ -62,6 +63,7 @@ def producto_individual(codigo_producto):
             "descripcion": producto["descripcion"],
             "precio": producto["precio"],
             "stock": producto["stock"],
+            "url_foto": producto["url_foto"],
             "categoria": producto["categoria"]
         })
 

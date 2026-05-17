@@ -18,6 +18,7 @@ def obtener_productos():
             p.descripcion,
             p.precio,
             p.stock,
+            p.url_foto,       
             c.nombre AS categoria
         FROM productos p
         INNER JOIN categorias c
