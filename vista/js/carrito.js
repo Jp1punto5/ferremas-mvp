@@ -3,6 +3,7 @@
 actualizarContadorCarrito();
 listarProductosCarrito();       
 
+
 /* ========================================= */
 /* OBTENER CARRITO */
 /* ========================================= */
@@ -167,14 +168,27 @@ function listarProductosCarrito()
     /* ========================================= */
     /* CARRITO VACIO */
     /* ========================================= */
+    const tituloCompraTotal = document.getElementById("tituloCompraTotal");
 
     if (carrito.length === 0)
     {
 
-        mostrarAlerta("No hay productos en el carrito","error");
+        
+        const mostrarAside =
+        document.getElementById(
+            "resumenCompra"
+        );
 
+         mostrarAside.style.display =
+        "none";
+        tituloCompraTotal.style.display = "none";
+        mostrarAlerta("No hay productos en el carrito","error");
+        
         return;
     }
+    
+
+    tituloCompraTotal.style.display = carrito.length > 0 ? "block" : "none";
 
 
     /* ========================================= */
@@ -314,6 +328,8 @@ function listarProductosCarrito()
             );
         }
     );
+
+    mostrarResumenCompra();
 }
 
 
@@ -355,11 +371,10 @@ function descontarProducto(
     if (producto.cantidad <= 0)
     {
         carrito =
-            carrito.filter(
-                item =>
-                    item.codigo_producto !==
-                    codigoProducto
-            );
+        carrito.filter(
+            item =>
+                item.cantidad > 0
+        );
     }
 
 
@@ -372,7 +387,7 @@ function descontarProducto(
 
     listarProductosCarrito();
 
-    actualizarTotalCompra();
+
 }
 
 
@@ -406,11 +421,104 @@ function eliminarProducto(
 
     listarProductosCarrito();
 
-    actualizarTotalCompra();
 
 
     mostrarAlerta(
         'Producto eliminado',
         'warning'
     );
+}
+
+
+/* ========================================= */
+/* MOSTRAR RESUMEN COMPRA */
+/* ========================================= */
+
+function mostrarResumenCompra()
+{
+
+    const carrito =
+        obtenerCarrito();
+
+
+    const aside =
+        document.getElementById(
+            'resumenCompra'
+        );
+    
+    const mostrarAside = document.getElementById("resumenCompra");
+     mostrarAside.style.display = carrito.length > 0 ? "block" : "none";
+    
+
+    /* ========================================= */
+    /* CALCULAR TOTAL */
+    /* ========================================= */
+
+    let total = 0;
+
+
+    carrito.forEach(
+        producto =>
+        {
+            total +=
+                producto.precio *
+                producto.cantidad;
+        }
+    );
+
+
+    const totalFormateado =
+        total.toLocaleString(
+            'es-CL'
+        );
+
+
+    /* ========================================= */
+    /* HTML */
+    /* ========================================= */
+
+    aside.innerHTML =
+    `
+        <h2>
+            Total a Pagar
+        </h2>
+
+
+        <div class="valor-total">
+
+            $${totalFormateado}
+
+        </div>
+
+
+        <div class="botones-pago">
+
+            <button class="btn-webpay">
+
+                <i class="fa-solid fa-credit-card"></i>
+
+                Pagar con tarjeta
+
+            </button>
+
+
+            <button class="btn-transferencia">
+
+                <i class="fa-solid fa-building-columns"></i>
+
+                Transferencia
+
+            </button>
+
+
+            <button class="btn-login">
+
+                <i class="fa-solid fa-user"></i>
+
+                Iniciar sesión
+
+            </button>
+
+        </div>
+    `;
 }
