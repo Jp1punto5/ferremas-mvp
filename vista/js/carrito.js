@@ -190,7 +190,7 @@ function listarProductosCarrito()
 
     tituloCompraTotal.style.display = carrito.length > 0 ? "block" : "none";
 
-
+    mostrarUsuarioLogeado();
     /* ========================================= */
     /* RECORRER PRODUCTOS */
     /* ========================================= */
@@ -455,7 +455,19 @@ function mostrarResumenCompra()
     /* ========================================= */
 
     let total = 0;
+        /* ========================================= */
+        /* VALIDAR USUARIO LOGEADO */
+        /* ========================================= */
 
+        const usuarioLogeado =
+            JSON.parse(
+                sessionStorage.getItem(
+                    'usuarioLogeado'
+                )
+            );
+
+
+ 
 
     carrito.forEach(
         producto =>
@@ -465,7 +477,16 @@ function mostrarResumenCompra()
                 producto.cantidad;
         }
     );
+        let descuento = 0;
+        console.log("total= ",total);
+        console.log(typeof total);
 
+        if(usuarioLogeado)
+        {
+            descuento = Number(total) * 0.10;
+
+            total = Number(total) - descuento;
+        }
 
     const totalFormateado =
         total.toLocaleString(
@@ -489,7 +510,20 @@ function mostrarResumenCompra()
             $${totalFormateado}
 
         </div>
+                ${
+                    usuarioLogeado
+                    ?
+                    `
+                        <p class="descuento-aplicado">
 
+                            Descuento cliente:
+                            -$${descuento.toLocaleString('es-CL')}
+
+                        </p>
+                    `
+                    :
+                    ''
+                }
 
         <div class="botones-pago">
 
@@ -521,4 +555,30 @@ function mostrarResumenCompra()
 
         </div>
     `;
+
+
+    /* ========================================= */
+    /* BOTON LOGIN */
+    /* ========================================= */
+
+    const botonLogin =
+        document.querySelector(
+            '.btn-login'
+        );
+
+
+    if(botonLogin)
+    {
+        botonLogin.addEventListener(
+            'click',
+            () =>
+            {
+                document.getElementById(
+                    'modalLogin'
+                ).classList.remove(
+                    'oculto'
+                );
+            }
+        );
+    }
 }

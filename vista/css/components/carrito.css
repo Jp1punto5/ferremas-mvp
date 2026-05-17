@@ -348,3 +348,16 @@
 
     transform: scale(1.03);
 }
+
+.descuento-aplicado {
+
+    font-size: 18px;
+
+    color: #27ae60;
+
+    font-weight: bold;
+
+    text-align: center;
+
+    margin-bottom: 15px;
+}
