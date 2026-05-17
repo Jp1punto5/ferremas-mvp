@@ -170,7 +170,9 @@ console.log("correo: " +correo + " clave: " + clave);
             'usuarioLogeado',
             JSON.stringify(data)
           );
+            
             mostrarUsuarioLogeado();
+            mostrarResumenCompra();
             mostrarAlerta(
                 'Inicio de sesión exitoso',
                 'success'
@@ -222,7 +224,6 @@ console.log("correo: " +correo + " clave: " + clave);
 
 function mostrarUsuarioLogeado()
 {
-
     const usuario =
         JSON.parse(
             sessionStorage.getItem(
@@ -241,6 +242,15 @@ function mostrarUsuarioLogeado()
         document.getElementById(
             'titulo_carrito'
         );
+
+    if(!usuario)
+    {
+
+        titulo.textContent =
+            'Carrito de Compras';
+
+        return;
+    }
 
 
     titulo.textContent =
