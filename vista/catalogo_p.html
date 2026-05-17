@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ferremas - Catálogo</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/main.css">
+
+    <!-- ICONOS -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+    <!-- ======================================== -->
+    <!-- HEADER PRINCIPAL -->
+    <!-- ======================================== -->
+
+    <header class="header-principal">
+
+        <!-- LOGO FERREMAS -->
+        <div class="contenedor-logo">
+            <img src="img/logo-ferremas.png"
+                 alt="Logo Ferremas"
+                 class="logo-ferremas">
+        </div>
+
+        <!-- TITULO -->
+        <div class="contenedor-titulo">
+            <h1>Ferremas</h1>
+            <p>Catálogo de productos</p>
+        </div>
+
+        <!-- CARRITO -->
+        <div class="contenedor-carrito">
+
+            <button class="boton-carrito">
+                <i class="fa-solid fa-cart-shopping"></i>
+
+                <span id="contador-carrito">
+                    0
+                </span>
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- ======================================== -->
+    <!-- CONTENIDO PRINCIPAL -->
+    <!-- ======================================== -->
+
+    <main class="contenedor-principal">
+
+        <!-- ======================================== -->
+        <!-- MENU CATEGORIAS -->
+        <!-- ======================================== -->
+
+        <aside class="menu-categorias">
+
+            <h2>Categorías</h2>
+
+            <ul>
+                <li>
+                    <button class="categoria-btn">
+                        Herramientas
+                    </button>
+                </li>
+
+                <li>
+                    <button class="categoria-btn">
+                        Electricidad
+                    </button>
+                </li>
+
+                <li>
+                    <button class="categoria-btn">
+                        Construcción
+                    </button>
+                </li>
+
+                <li>
+                    <button class="categoria-btn">
+                        Pintura
+                    </button>
+                </li>
+
+                <li>
+                    <button class="categoria-btn">
+                        Jardinería
+                    </button>
+                </li>
+
+                <li>
+                    <button class="categoria-btn">
+                        Seguridad
+                    </button>
+                </li>
+            </ul>
+
+        </aside>
+
+
+        <!-- ======================================== -->
+        <!-- SECCION PRODUCTOS -->
+        <!-- ======================================== -->
+
+        <section class="contenedor-productos">
+
+            <!-- TITULO DINAMICO -->
+            <div class="titulo-categoria">
+                <h2>Productos destacados</h2>
+            </div>
+
+
+            <!-- GRID PRODUCTOS -->
+            <div class="grid-productos">
+
+                <!-- TARJETA PRODUCTO -->
+                <article class="tarjeta-producto">
+
+                    <img src="https://images.unsplash.com/photo-1504148455328-c376907d081c?q=80&w=1200"
+                         alt="Martillo"
+                         class="imagen-producto">
+
+                    <div class="info-producto">
+
+                        <h3>Martillo profesional</h3>
+
+                        <p class="precio-clp">
+                            $7.990 CLP
+                        </p>
+
+                        <p class="precio-usd">
+                            USD $0
+                        </p>
+
+                        <button class="btn-agregar">
+                            <i class="fa-solid fa-plus"></i>
+                            Agregar al carrito
+                        </button>
+
+                    </div>
+
+                </article>
+
+
+                <!-- TARJETA PRODUCTO -->
+                <article class="tarjeta-producto">
+
+                    <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=1200"
+                         alt="Taladro"
+                         class="imagen-producto">
+
+                    <div class="info-producto">
+
+                        <h3>Taladro eléctrico</h3>
+
+                        <p class="precio-clp">
+                            $49.990 CLP
+                        </p>
+
+                        <p class="precio-usd">
+                            USD $0
+                        </p>
+
+                        <button class="btn-agregar">
+                            <i class="fa-solid fa-plus"></i>
+                            Agregar al carrito
+                        </button>
+
+                    </div>
+
+                </article>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- ======================================== -->
+    <!-- MODAL LOGIN -->
+    <!-- ======================================== -->
+
+    <div class="modal-login oculto" id="modalLogin">
+
+        <div class="contenido-modal">
+
+            <button class="cerrar-modal">
+                X
+            </button>
+
+            <h2>Iniciar sesión</h2>
+
+            <form>
+
+                <input type="email"
+                       placeholder="Correo electrónico">
+
+                <input type="password"
+                       placeholder="Contraseña">
+
+                <button type="submit">
+                    Ingresar
+                </button>
+
+            </form>
+
+            <hr>
+
+            <h3>¿No tienes cuenta?</h3>
+
+            <button>
+                Registrarse
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- ======================================== -->
+    <!-- JAVASCRIPT -->
+    <!-- ======================================== -->
+
+    <script src="js/app.js"></script>
+
+</body>
+</html>
