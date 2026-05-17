@@ -632,7 +632,7 @@ function cerrarSesion()
     sessionStorage.removeItem(
         'usuarioLogeado'
     );
-
+    mostrarUsuarioLogeado();
 
     mostrarAlerta(
         'Sesión cerrada',

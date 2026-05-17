@@ -231,13 +231,6 @@ function mostrarUsuarioLogeado()
             )
         );
 
-
-    if(!usuario)
-    {
-        return;
-    }
-
-
     const titulo =
         document.getElementById(
             'titulo_carrito'
