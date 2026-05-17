@@ -60,7 +60,7 @@ function categoriaProductos(productos)
     productos.forEach(producto =>
     {
 
-   
+                 const precioFormateado = producto.precio.toLocaleString('es-CL');
                  const tarjeta = document.createElement(
                         'article'
                     );
@@ -85,11 +85,15 @@ function categoriaProductos(productos)
                             </h3>
 
                             <p class="precio-clp">
-                                $${producto.precio} CLP
+                                <h4>$${precioFormateado} CLP</h4>
                             </p>
 
                             <p class="precio-usd">
-                                USD $0
+                                <h4>USD $0</h4>
+                            </p>
+
+                            <p class="stock">
+                                <h4>Stock: ${producto.stock}</h4>
                             </p>
 
                             <button class="btn-agregar">
