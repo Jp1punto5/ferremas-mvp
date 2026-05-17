@@ -1,4 +1,4 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 
 from modelo.producto_model import (
     obtener_productos,
@@ -91,6 +91,56 @@ def test_login():
     return jsonify({
         "success": False
     })
+
+
+# Endpoint para registrar un nuevo usuario, se reciben los datos en formato JSON y se valida que el correo no esté registrado antes de crear el nuevo usuario.
+
+@app.route('/registro', methods=['POST'])
+def registro():
+
+    datos = request.get_json()
+
+    nombre_completo = datos.get('nombre_completo')
+    correo = datos.get('correo')
+    telefono = datos.get('telefono')
+    password = datos.get('password')
+
+    # =========================
+    # VALIDAR USUARIO EXISTENTE
+    # =========================
+
+    usuario_existente = obtener_usuario_por_correo(correo)
+
+    if usuario_existente:
+
+        return jsonify({
+            "success": False,
+            "mensaje": "El correo ya está registrado"
+        }), 400
+
+    # =========================
+    # REGISTRAR USUARIO
+    # =========================
+
+    registrar_usuario(
+        nombre_completo,
+        correo,
+        telefono,
+        password
+    )
+
+    return jsonify({
+        "success": True,
+        "mensaje": "Usuario registrado correctamente"
+    })
+
+
+
+
+
+
+
+
 
 
 
