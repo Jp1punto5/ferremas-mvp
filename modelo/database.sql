@@ -15,13 +15,14 @@ CREATE TABLE IF NOT EXISTS categorias (
 );
 
 CREATE TABLE IF NOT EXISTS productos (
+
     codigo_producto TEXT PRIMARY KEY,
     nombre TEXT NOT NULL,
     descripcion TEXT,
     precio REAL NOT NULL,
     stock INTEGER NOT NULL DEFAULT 0,
+    url_foto TEXT,
     id_categoria INTEGER,
-
     FOREIGN KEY (id_categoria)
     REFERENCES categorias(id_categoria)
 );

@@ -1,94 +1,275 @@
--- Limpiamos las tablas para evitar duplicados
+/* ========================================= */
+/* LIMPIAR TABLAS */
+/* ========================================= */
+
 DELETE FROM productos;
 DELETE FROM categorias;
 DELETE FROM usuarios;
 
 
---Categorías DEMO
-INSERT INTO categorias (nombre) VALUES
+/* ========================================= */
+/* RESETEAR AUTOINCREMENT */
+/* ========================================= */
+
+DELETE FROM sqlite_sequence;
+
+
+/* ========================================= */
+/* INSERTAR USUARIOS */
+/* ========================================= */
+
+INSERT INTO usuarios (
+    nombre_completo,
+    correo,
+    telefono,
+    password_hash,
+    rol
+)
+VALUES
+(
+    'Juan Cliente',
+    'cliente@ferremas.cl',
+    '+56911111111',
+    '123456',
+    'CLIENTE'
+),
+(
+    'Admin Ferremas',
+    'admin@ferremas.cl',
+    '+56922222222',
+    'admin123',
+    'ADMIN'
+);
+
+
+/* ========================================= */
+/* INSERTAR CATEGORIAS */
+/* ========================================= */
+
+INSERT INTO categorias (nombre)
+VALUES
 ('Herramientas'),
-('Tornillería'),
-('Pinturas'),
 ('Electricidad'),
-('Gasfitería'),
+('Construcción'),
+('Pintura'),
+('Jardinería'),
 ('Seguridad');
 
+/* ========================================= */
+/* INSERTAR PRODUCTOS */
+/* ========================================= */
 
---Herramientas
-INSERT INTO productos
-(codigo_producto, nombre, descripcion, precio, stock, id_categoria)
+INSERT INTO productos (
+    codigo_producto,
+    nombre,
+    descripcion,
+    precio,
+    stock,
+    url_foto,
+    id_categoria
+)
 VALUES
-('HER001', 'Martillo', 'Martillo de acero 16oz', 7990, 25, 1),
 
-('HER002', 'Destornillador Phillips', 'Destornillador cruz tamaño mediano', 3990, 40, 1),
+/* ========================================= */
+/* HERRAMIENTAS */
+/* ========================================= */
 
-('HER003', 'Llave Inglesa', 'Llave ajustable 10 pulgadas', 12990, 15, 1);
+(
+    'HER001',
+    'Martillo carpintero',
+    'Martillo profesional acero reforzado',
+    7990,
+    15,
+    'css/herramientas/martillo.png',
+    1
+),
 
---Tornillería
-INSERT INTO productos
-(codigo_producto, nombre, descripcion, precio, stock, id_categoria)
-VALUES
-('TOR001', 'Caja Tornillos 2"', 'Caja 100 unidades', 5990, 60, 2),
+(
+    'HER002',
+    'Taladro inalámbrico',
+    'Taladro 20V batería incluida',
+    89990,
+    8,
+    'css/herramientas/taladro.png',
+    1
+),
 
-('TOR002', 'Tuercas Hexagonales', 'Pack 50 unidades', 3490, 80, 2),
+(
+    'HER003',
+    'Caja herramientas',
+    'Caja metálica profesional',
+    24990,
+    10,
+    'css/herramientas/caja_herramientas.png',
+    1
+),
 
-('TOR003', 'Golillas Metálicas', 'Pack 100 unidades', 2490, 100, 2);
+/* ========================================= */
+/* ELECTRICIDAD */
+/* ========================================= */
 
---Pinturas
-INSERT INTO productos
-(codigo_producto, nombre, descripcion, precio, stock, id_categoria)
-VALUES
-('PIN001', 'Pintura Blanca 1L', 'Pintura interior blanca mate', 8990, 20, 3),
+(
+    'ELE001',
+    'Cable eléctrico',
+    'Cable 100 metros',
+    15990,
+    25,
+    'css/herramientas/cable_electrico.png',
+    2
+),
 
-('PIN002', 'Rodillo Pintura', 'Rodillo profesional', 4990, 35, 3),
+(
+    'ELE002',
+    'Enchufe doble',
+    'Enchufe doble blanco',
+    3990,
+    40,
+    'css/herramientas/enchufe_doble.png',
+    2
+),
 
-('PIN003', 'Brocha 2"', 'Brocha mango madera', 2990, 50, 3);
+(
+    'ELE003',
+    'Interruptor',
+    'Interruptor simple',
+    2990,
+    35,
+    'css/herramientas/interruptor.png',
+    2
+),
 
+/* ========================================= */
+/* CONSTRUCCION */
+/* ========================================= */
 
---Electricidad
-INSERT INTO productos
-(codigo_producto, nombre, descripcion, precio, stock, id_categoria)
-VALUES
-('ELE001', 'Cable Eléctrico 10m', 'Cable aislado 220V', 15990, 12, 4),
+(
+    'CON001',
+    'Saco cemento',
+    'Cemento alta resistencia',
+    5990,
+    50,
+    'css/herramientas/saco_cemento.png',
+    3
+),
 
-('ELE002', 'Interruptor Simple', 'Interruptor pared blanco', 2490, 45, 4),
+(
+    'CON002',
+    'Ladrillo fiscal',
+    'Ladrillo cerámico',
+    790,
+    500,
+    'css/herramientas/ladrillo.png',
+    3
+),
 
-('ELE003', 'Ampolleta LED', 'Ampolleta 12W luz fría', 1990, 70, 4);
+(
+    'CON003',
+    'Pala construcción',
+    'Pala metálica reforzada',
+    12990,
+    20,
+    'css/herramientas/pala_construccion.png',
+    3
+),
 
---Gasfitería
-INSERT INTO productos
-(codigo_producto, nombre, descripcion, precio, stock, id_categoria)
-VALUES
-('GAS001', 'Llave Paso', 'Llave paso metálica 1/2"', 6990, 22, 5),
+/* ========================================= */
+/* PINTURA */
+/* ========================================= */
 
-('GAS002', 'Teflón', 'Cinta selladora gasfitería', 990, 100, 5),
+(
+    'PIN001',
+    'Rodillo pintura',
+    'Rodillo profesional',
+    4990,
+    30,
+    'css/herramientas/rodillo_pintura.png',
+    4
+),
 
-('GAS003', 'Flexible Lavamanos', 'Flexible acero inoxidable', 5490, 30, 5);
+(
+    'PIN002',
+    'Pintura blanca',
+    'Galón pintura interior',
+    19990,
+    18,
+    'css/herramientas/pintura_blanca.png',
+    4
+),
 
---Seguridad
-INSERT INTO productos
-(codigo_producto, nombre, descripcion, precio, stock, id_categoria)
-VALUES
-('SEG001', 'Guantes Seguridad', 'Guantes anticorte talla M', 4990, 40, 6),
+(
+    'PIN003',
+    'Brocha profesional',
+    'Brocha madera natural',
+    2990,
+    45,
+    'css/herramientas/brocha.png',
+    4
+),
 
-('SEG002', 'Lentes Protección', 'Lentes transparentes', 3990, 35, 6),
+/* ========================================= */
+/* JARDINERIA */
+/* ========================================= */
 
-('SEG003', 'Casco Seguridad', 'Casco amarillo industrial', 12990, 18, 6);
+(
+    'JAR001',
+    'Manguera jardín',
+    'Manguera flexible 20 metros',
+    14990,
+    12,
+    'css/herramientas/manguera.png',
+    5
+),
 
+(
+    'JAR002',
+    'Tijera poda',
+    'Tijera acero inoxidable',
+    8990,
+    16,
+    'css/herramientas/tijera_poda.png',
+    5
+),
 
+(
+    'JAR003',
+    'Macetero grande',
+    'Macetero cerámico',
+    6990,
+    22,
+    'css/herramientas/macetero_grande.png',
+    5
+),
 
--- USUARIOS DEMO
-INSERT INTO usuarios
-(nombre_completo, correo, telefono, password_hash, rol)
-VALUES
-('Administrador Ferremas',
-'admin@ferremas.cl',
-'+56911111111',
-'123456',
-'ADMIN'),
+/* ========================================= */
+/* SEGURIDAD */
+/* ========================================= */
 
-('Juan Pérez',
-'cliente@ferremas.cl',
-'+56922222222',
-'123456',
-'CLIENTE');
+(
+    'SEG001',
+    'Casco seguridad',
+    'Casco industrial amarillo',
+    12990,
+    14,
+    'css/herramientas/casco_seguridad.png',
+    6
+),
+
+(
+    'SEG002',
+    'Guantes trabajo',
+    'Guantes anticorte',
+    5990,
+    28,
+    'css/herramientas/guantes.png',
+    6
+),
+
+(
+    'SEG003',
+    'Lentes protección',
+    'Lentes transparentes',
+    4990,
+    25,
+    'css/herramientas/lentes_proteccion.png',
+    6
+);
