@@ -40,50 +40,58 @@ function mostrarProductos(productos)
 
     productos.forEach(producto =>
     {
-        const tarjeta = document.createElement(
-            'article'
-        );
 
-        tarjeta.classList.add(
-            'tarjeta-producto'
-        );
+        if(producto.stock <= 10)
+            {
+                 const tarjeta = document.createElement(
+                        'article'
+                    );
 
-
-        tarjeta.innerHTML =
-        `
-            <img
-                src="${producto.url_foto}"
-                alt="${producto.nombre}"
-                class="imagen-producto"
-            >
-
-            <div class="info-producto">
-
-                <h3>
-                    ${producto.nombre}
-                </h3>
-
-                <p class="precio-clp">
-                    $${producto.precio} CLP
-                </p>
-
-                <p class="precio-usd">
-                    USD $0
-                </p>
-
-                <button class="btn-agregar">
-
-                    <i class="fa-solid fa-plus"></i>
-
-                    Agregar al carrito
-
-                </button>
-
-            </div>
-        `;
+                    tarjeta.classList.add(
+                        'tarjeta-producto'
+                    );
 
 
-        grid.appendChild(tarjeta);
+                    tarjeta.innerHTML =
+                    `
+                        <img
+                            src="${producto.url_foto}"
+                            alt="${producto.nombre}"
+                            class="imagen-producto"
+                        >
+
+                        <div class="info-producto">
+
+                            <h3>
+                                ${producto.nombre}
+                            </h3>
+
+                            <p class="precio-clp">
+                                $${producto.precio} CLP
+                            </p>
+
+                            <p class="precio-usd">
+                                USD $0
+                            </p>
+
+                            <button class="btn-agregar">
+
+                                <i class="fa-solid fa-plus"></i>
+
+                                Agregar al carrito
+
+                            </button>
+
+                        </div>
+                    `;
+
+                    grid.appendChild(tarjeta);
+            }
+
+
+
+
+        
     });
 }
 
