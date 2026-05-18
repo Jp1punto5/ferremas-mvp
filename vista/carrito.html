@@ -104,7 +104,7 @@
 
         <div class="contenido-modal">
 
-            <div class="cerrar-modal">
+            <div class="cerrar-modal" id="cerrarLogin">
                 X
             </div>
 
@@ -141,10 +141,61 @@
 
 
     <!-- ======================================== -->
+    <!-- MODAL REGISTRO -->
+    <!-- ======================================== -->
+
+    <div class="modal-login oculto" id="modalRegistro">
+
+        <div class="contenido-modal">
+
+            <div class="cerrar-modal" id="cerrarRegistro">
+                X
+            </div>
+
+            <h2>Crear cuenta</h2>
+
+            <form>
+
+                <input type="text" id="nombreRegistro"
+                placeholder="Nombre completo">
+
+                <input type="email" id="correoRegistro"
+                placeholder="Correo electrónico">
+
+                <input type="tel" id="telefonoRegistro"
+                placeholder="Teléfono">
+
+                <input type="password" id="passwordRegistro"
+                placeholder="Contraseña">
+
+                <button     
+                type="button"
+                class="btn-modal"
+                id="btnCrearCuenta">
+                    Registrarse
+                </button>
+
+            </form>
+
+            <hr>
+
+            <h3>¿Ya tienes cuenta?</h3>
+
+            <button id="btnVolverLogin">
+                Volver al login
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- ======================================== -->
     <!-- JAVASCRIPT -->
     <!-- ======================================== -->
     <script src="js/mostrarAlerta.js"></script>
     <script src="js/modal_login.js"></script>
+    <script src="js/modal_registro.js"></script>
     <script src="js/carrito.js"></script>
     
     <div id="contenedor-alertas"></div>
