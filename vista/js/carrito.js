@@ -619,6 +619,23 @@ function mostrarResumenCompra()
         );
     }
 
+    /* ========================================= */
+    /* BOTON TRANSFERENCIA */
+    /* ========================================= */
+
+    const botonTransferencia =
+        document.querySelector(
+            '.btn-transferencia'
+        );
+
+    if(botonTransferencia)
+    {
+        botonTransferencia.addEventListener(
+            'click',
+            abrirModalTransferencia
+        );
+    }
+
 
 }
 
@@ -647,4 +664,50 @@ function cerrarSesion()
     mostrarResumenCompra();
 
     mostrarUsuarioLogeado();
+}
+
+
+/* ========================================= */
+/* ABRIR MODAL TRANSFERENCIA */
+/* ========================================= */
+
+function abrirModalTransferencia()
+{
+    /* ========================================= */
+    /* GENERAR NUMERO DE COMPROBANTE */
+    /* ========================================= */
+
+    const numeroAleatorio =
+        Math.floor(Math.random() * 9000) + 1000;
+
+    const numeroComprobante =
+        `TRF-${Date.now()}-${numeroAleatorio}`;
+
+    const elementoComprobante =
+        document.getElementById(
+            'numeroComprobante'
+        );
+
+    if (elementoComprobante)
+    {
+        elementoComprobante.textContent =
+            `${numeroComprobante} - PAGO REALIZADO`;
+    }
+
+
+    /* ========================================= */
+    /* ABRIR MODAL */
+    /* ========================================= */
+
+    const modal =
+        document.getElementById(
+            'modalTransferencia'
+        );
+
+    if (modal)
+    {
+        modal.classList.remove(
+            'oculto'
+        );
+    }
 }
