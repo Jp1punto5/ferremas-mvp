@@ -191,11 +191,88 @@
 
 
     <!-- ======================================== -->
+    <!-- MODAL TRANSFERENCIA -->
+    <!-- ======================================== -->
+
+    <div class="modal-login oculto" id="modalTransferencia">
+
+        <div class="contenido-modal">
+
+            <div class="cerrar-modal" id="cerrarTransferencia">
+                X
+            </div>
+
+            <h2>Transferencia Bancaria</h2>
+
+            <div class="info-transferencia">
+
+                <p class="label-transferencia">
+                    <strong>Banco:</strong>
+                </p>
+                <p class="valor-transferencia">
+                    Banco Santander Chile
+                </p>
+
+                <p class="label-transferencia">
+                    <strong>Tipo de Cuenta:</strong>
+                </p>
+                <p class="valor-transferencia">
+                    Cuenta Corriente
+                </p>
+
+                <p class="label-transferencia">
+                    <strong>Número de Cuenta:</strong>
+                </p>
+                <p class="valor-transferencia codigo-cuenta">
+                    12345678-9
+                </p>
+
+                <p class="label-transferencia">
+                    <strong>Razón Social:</strong>
+                </p>
+                <p class="valor-transferencia">
+                    Ferremas S.A. - RUT 76.123.456-K
+                </p>
+
+            </div>
+
+            <div class="instrucciones-transferencia">
+
+                <p class="titulo-instrucciones">
+                    <strong>Instrucciones:</strong>
+                </p>
+
+                <p class="texto-instrucciones">
+                    Por favor, envía una foto o comprobante de tu transferencia al correo:
+                </p>
+
+                <p class="correo-comprobante">
+                    <strong>pagosferremas@gmail.com</strong>
+                </p>
+
+                <p class="asunto-correo">
+                    <strong>Asunto:</strong> 
+                    <span id="numeroComprobante">TRF-2024051801 - PAGO REALIZADO</span>
+                </p>
+
+            </div>
+
+            <button class="btn-modal" id="btnTransferenciaRealizada">
+                Transferencia Realizada
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- ======================================== -->
     <!-- JAVASCRIPT -->
     <!-- ======================================== -->
     <script src="js/mostrarAlerta.js"></script>
     <script src="js/modal_login.js"></script>
     <script src="js/modal_registro.js"></script>
+    <script src="js/modal_transferencia.js"></script>
     <script src="js/carrito.js"></script>
     
     <div id="contenedor-alertas"></div>
