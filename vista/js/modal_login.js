@@ -11,12 +11,10 @@ document.addEventListener(
                 'modalLogin'
             );
 
-
         const cerrarModal =
-            document.querySelector(
-                '.cerrar-modal'
+            document.getElementById(
+                'cerrarLogin'
             );
-
 
         /* ========================================= */
         /* CERRAR MODAL */
@@ -65,6 +63,24 @@ document.addEventListener(
             'click',
             
             iniciarSesion
+        );
+
+        /* ========================================= */
+        /* BOTON REGISTRAR */
+        /* ========================================= */
+
+        const btnRegistrar =
+        document.getElementById(
+            'btnRegistrar'
+        );
+
+        btnRegistrar.addEventListener(
+            'click',
+            () =>
+            {
+                modal.classList.add('oculto');
+                document.getElementById('modalRegistro').classList.remove('oculto');
+            }
         );
 
     }
