@@ -78,26 +78,6 @@ document.addEventListener(
 function procesarTransferencia()
 {
     /* ========================================= */
-    /* VALIDAR USUARIO LOGEADO */
-    /* ========================================= */
-
-    const usuarioLogeado =
-        JSON.parse(
-            sessionStorage.getItem(
-                'usuarioLogeado'
-            )
-        );
-
-    if (!usuarioLogeado)
-    {
-        mostrarAlerta(
-            'Debes iniciar sesión para completar la compra',
-            'warning'
-        );
-        return;
-    }
-
-    /* ========================================= */
     /* CERRAR MODAL */
     /* ========================================= */
 
@@ -137,10 +117,24 @@ function procesarTransferencia()
 
 
     /* ========================================= */
-    /* PREGUNTAR SI MANTENER SESION */
+    /* VALIDAR USUARIO LOGEADO */
     /* ========================================= */
 
-    mostrarDialogoSesion();
+    const usuarioLogeado =
+        JSON.parse(
+            sessionStorage.getItem(
+                'usuarioLogeado'
+            )
+        );
+
+    /* ========================================= */
+    /* PREGUNTAR SI MANTENER SESION (SOLO SI EXISTE USUARIO) */
+    /* ========================================= */
+
+    if (usuarioLogeado)
+    {
+        mostrarDialogoSesion();
+    }
 }
 
 
@@ -150,13 +144,68 @@ function procesarTransferencia()
 
 function mostrarDialogoSesion()
 {
-    const respuesta = confirm(
-        '¿Deseas mantener la sesión abierta?\n\nPresiona "Aceptar" para continuar o "Cancelar" para cerrar sesión.'
-    );
+    const dialogo =
+        document.getElementById(
+            'dialogoConfirmacion'
+        );
 
-    if (!respuesta)
+    const btnMantener =
+        document.getElementById(
+            'btnMantenerSesion'
+        );
+
+    const btnCerrar =
+        document.getElementById(
+            'btnCerrarSesion'
+        );
+
+    if (dialogo)
     {
-        cerrarSesionUsuario();
+        dialogo.classList.remove(
+            'oculto'
+        );
+    }
+
+    if (btnMantener)
+    {
+        btnMantener.addEventListener(
+            'click',
+            cerrarDialogo,
+            { once: true }
+        );
+    }
+
+    if (btnCerrar)
+    {
+        btnCerrar.addEventListener(
+            'click',
+            () =>
+            {
+                cerrarDialogo();
+                cerrarSesionUsuario();
+            },
+            { once: true }
+        );
+    }
+}
+
+
+/* ========================================= */
+/* CERRAR DIALOGO */
+/* ========================================= */
+
+function cerrarDialogo()
+{
+    const dialogo =
+        document.getElementById(
+            'dialogoConfirmacion'
+        );
+
+    if (dialogo)
+    {
+        dialogo.classList.add(
+            'oculto'
+        );
     }
 }
 
