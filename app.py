@@ -116,7 +116,13 @@ def registro():
             return respuesta_error("El correo ya está registrado", 400)
         
         registrar_usuario(nombre_completo, correo, telefono, password)
-        return respuesta_exito(mensaje="Usuario registrado correctamente"), 201
+        return jsonify({
+
+            "success":True,
+            "mensaje":
+                "Usuario registrado correctamente"
+
+        }), 201
     
     except Exception as e:
         return respuesta_error(f"Error en registro: {str(e)}", 500)

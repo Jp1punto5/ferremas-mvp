@@ -80,23 +80,22 @@ def registrar_usuario(
         Exception: Si hay error en la BD
     """
     try:
-        query = """
-            INSERT INTO usuarios
-            (
-                nombre_completo,
-                correo,
-                telefono,
-                password_hash,
-                rol
-            )
-            VALUES (?, ?, ?, ?, ?)
-        """
-        conexion = None
         from modelo.conexion import conectar
+        conexion = None
         try:
             conexion = conectar()
             cursor = conexion.cursor()
-            cursor.execute(query, (
+            cursor.execute("""
+                INSERT INTO usuarios
+                (
+                    nombre_completo,
+                    correo,
+                    telefono,
+                    password_hash,
+                    rol
+                )
+                VALUES (?, ?, ?, ?, ?)
+            """, (
                 nombre_completo,
                 correo,
                 telefono,

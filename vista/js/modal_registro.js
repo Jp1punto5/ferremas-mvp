@@ -213,7 +213,7 @@ async function crearCuenta()
         if(data.success)
         {
             mostrarAlerta(
-                'Cuenta creada exitosamente',
+                data.mensaje,
                 'success'
             );
 
