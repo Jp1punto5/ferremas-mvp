@@ -111,7 +111,7 @@ function procesarTransferencia()
     /* ========================================= */
 
     mostrarAlerta(
-        'Transferencia registrada. Comprobante enviado al correo.',
+        'Compra Finalizada - Enviar comprobante de Transferencia.',
         'success'
     );
 
