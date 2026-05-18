@@ -53,11 +53,14 @@
     animation:
         aparecerModal 0.25s ease;
 
-            display: flex;
+    display: flex;
 
     flex-direction: column;
 
     gap: 18px;
+
+    max-height: 90vh;
+    overflow-y: auto;
 }
 
 
@@ -132,6 +135,30 @@
     border-radius: 8px;
 
     cursor: pointer;
+}
+
+.btn-modal {
+    background-color: var(--color-principal);
+    color: white;
+    font-weight: bold;
+}
+
+.btn-modal:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+}
+
+#btnRegistrar,
+#btnVolverLogin {
+    background-color: var(--color-secundario);
+    color: white;
+    font-weight: bold;
+}
+
+#btnRegistrar:hover,
+#btnVolverLogin:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
 }
 
 
