@@ -70,7 +70,7 @@ async function cargarProductos()
     try
     {
         const respuesta = await fetch(
-            'http://127.0.0.1:5000/productos'
+            'http://127.0.0.1:5003/productos'
         );
 
         const productos = await respuesta.json();
