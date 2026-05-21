@@ -1,21 +1,15 @@
 .modal-login {
 
     position: fixed;
-
     top: 0;
     left: 0;
-
     width: 100%;
     height: 100%;
-
     background-color:
         rgba(0,0,0,0.55);
-
     display: flex;
-
     justify-content: center;
     align-items: center;
-
     z-index: 9999;
 }
 
@@ -37,28 +31,18 @@
 .contenido-modal {
 
     background-color: white;
-
     width: 500px;
-
     max-width: 90%;
     border-radius: 15px;
-
     padding: 40px;
-
     position: relative;
-
     box-shadow:
         0 4px 15px rgba(0,0,0,0.25);
-
     animation:
         aparecerModal 0.25s ease;
-
     display: flex;
-
     flex-direction: column;
-
     gap: 18px;
-
     max-height: 90vh;
     overflow-y: auto;
 }
@@ -71,24 +55,15 @@
 .cerrar-modal {
 
     position: absolute;
-
     top: 12px;
     right: 12px;
-
-   padding: 14px;
-
+    padding: 14px;
     border: none;
-
     border-radius: 40%;
-
     background-color: #f2f2f2;
-
     font-size: 18px;
-
     font-weight: bold;
-
     cursor: pointer;
-
     transition: 0.2s;
     
 }
@@ -109,12 +84,9 @@
     width: 100%;
     font-size: 18px;
     padding: 15px;
-
     margin-top: 10px;
     margin-bottom: 15px;
-
     border-radius: 8px;
-
     border:
         1px solid #dcdcdc;
 }
@@ -127,13 +99,10 @@
 .contenido-modal button {
 
     width: 100%;
-
     padding: 15px;
     font-size: 18px;
     border: none;
-
     border-radius: 8px;
-
     cursor: pointer;
 }
 
@@ -167,7 +136,6 @@
     margin-top: 10px;
     font-size: 36px;
     margin-bottom: 25px;
-
     padding-right: 30px;
 }
 .contenido-modal h3 {
@@ -184,9 +152,7 @@
 @keyframes aparecerModal {
 
     from {
-
         opacity: 0;
-
         transform:
             translateY(-20px);
     }
@@ -194,7 +160,6 @@
     to {
 
         opacity: 1;
-
         transform:
             translateY(0);
     }
@@ -208,14 +173,10 @@
 .info-transferencia {
 
     background-color: #f9f9f9;
-
     padding: 20px;
-
     border-radius: 8px;
-
     border-left: 4px solid
         var(--color-principal);
-
     margin: 15px 0;
 }
 
@@ -223,13 +184,9 @@
 .label-transferencia {
 
     font-size: 14px;
-
     color: #666;
-
     margin: 12px 0 5px 0;
-
     text-transform: uppercase;
-
     letter-spacing: 0.5px;
 }
 
@@ -237,11 +194,8 @@
 .valor-transferencia {
 
     font-size: 16px;
-
     color: #333;
-
     font-weight: 500;
-
     margin: 0 0 15px 0;
 }
 
@@ -249,15 +203,10 @@
 .codigo-cuenta {
 
     background-color: white;
-
     padding: 10px;
-
     border-radius: 5px;
-
     border: 1px solid #e0e0e0;
-
     font-family: 'Courier New', monospace;
-
     letter-spacing: 1px;
 }
 
@@ -265,13 +214,9 @@
 .instrucciones-transferencia {
 
     background-color: #fffbea;
-
     padding: 20px;
-
     border-radius: 8px;
-
     border: 1px solid #ffe4b5;
-
     margin: 15px 0;
 }
 
@@ -279,11 +224,8 @@
 .titulo-instrucciones {
 
     font-size: 16px;
-
     color: #d9a520;
-
     margin: 0 0 12px 0;
-
     text-transform: uppercase;
 }
 
@@ -291,11 +233,8 @@
 .texto-instrucciones {
 
     font-size: 14px;
-
     color: #555;
-
     line-height: 1.6;
-
     margin: 8px 0;
 }
 
@@ -303,11 +242,8 @@
 .correo-comprobante {
 
     font-size: 15px;
-
     color: #d9a520;
-
     margin: 12px 0;
-
     word-break: break-all;
 }
 
@@ -315,15 +251,10 @@
 .asunto-correo {
 
     font-size: 13px;
-
     color: #555;
-
     margin: 12px 0 0 0;
-
     padding-top: 12px;
-
     border-top: 1px solid #ffe4b5;
-
     font-family: 'Courier New', monospace;
 }
 
@@ -331,6 +262,5 @@
 #numeroComprobante {
 
     color: #d9a520;
-
     font-weight: bold;
 }

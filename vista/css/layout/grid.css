@@ -1,9 +1,7 @@
 .contenedor-principal {
 
     display: flex;
-
     gap: 15px;
-
     padding: 20px;
     align-items: flex-start;
 }
@@ -18,15 +16,10 @@
 .grid-productos {
 
     display: grid;
-
     grid-template-columns:
         repeat(
             auto-fit,
             minmax(280px, 300px)
         );
-
-
     gap: 15px;
-
-   
 }

@@ -1,37 +1,29 @@
 .header-principal {
 
     display: flex;
-
     justify-content: space-between;
-
     align-items: center;
-
     padding: 10px;
-
     background-color: rgba(255, 122, 0, 0.95);
-
     color: white;
-
     backdrop-filter: blur(4px);
+    height: 120px; /*Altura del Header*/
 }
 
 .header-principal h1 {
 
     font-size: 54px;
-
     margin: 0;
 }
 
 .header-principal p {
 
     font-size: 23px;
-
     margin: 0;
 }
 
 .logo-ferremas {
 
     width: 260px;
-
-   mix-blend-mode: multiply;
+    mix-blend-mode: multiply;
 }

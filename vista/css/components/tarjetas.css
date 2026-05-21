@@ -1,13 +1,9 @@
 .tarjeta-producto {
 
     background-color: white;
-
     border-radius: var(--border-radius);
-
     overflow: hidden;
-
     box-shadow: var(--sombra-card);
-
     transition: 0.3s;
 }
 
@@ -19,13 +15,9 @@
 .imagen-producto {
 
     width: 100%;
-
     height: 220px;
-
     object-fit: contain;
-
     background-color: white;
-
     padding: 10px;
 }
 

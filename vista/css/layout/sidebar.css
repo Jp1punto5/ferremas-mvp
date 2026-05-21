@@ -1,13 +1,9 @@
 .menu-categorias {
 
     width: 250px;
-
     background-color: white;
-
     padding: 20px;
-
     border-radius: var(--border-radius);
-
     box-shadow: var(--sombra-card);
 }
 
