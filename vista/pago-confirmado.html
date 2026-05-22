@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmación de Pago - Ferremas</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="/vista/css/main.css">
+    <link rel="stylesheet" href="/vista/css/pago-confirmado.css">
+
+    <!-- ICONOS -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+    <!-- ======================================== -->
+    <!-- HEADER PRINCIPAL -->
+    <!-- ======================================== -->
+
+    <header class="header-principal">
+
+        <!-- LOGO + BOTON VOLVER -->
+        <div class="contenedor-logo">
+
+            <a href="vista/catalogo_p.html"
+            class="boton-volver">
+
+                <i class="fa-solid fa-arrow-left"></i>
+
+            </a>
+
+
+            <img src="/vista/img/logo-ferremas.png"
+                alt="Logo Ferremas"
+                class="logo-ferremas">
+
+        </div>
+
+        <!-- TITULO -->
+        <div class="contenedor-titulo">
+            <h1 id="tituloConfirmacion">Confirmación de Pago</h1>
+        </div>
+
+        <!-- CARRITO -->
+        <div class="contenedor-carrito">
+
+            <button class="boton-carrito">
+                <i class="fa-solid fa-cart-shopping"></i>
+
+                <span id="contador-carrito">
+                    0
+                </span>
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- ======================================== -->
+    <!-- CONTENIDO PRINCIPAL -->
+    <!-- ======================================== -->
+
+    <main class="contenedor-principal">
+
+        <div class="contenedor-confirmacion">
+
+            <!-- CARD CONFIRMACION -->
+            <div class="card-confirmacion">
+
+                <!-- HEADER -->
+                <div class="header-confirmacion">
+                    <h1>Confirmación de tu Pago</h1>
+                    <p>Por favor espera mientras procesamos tu transacción...</p>
+                </div>
+
+                <!-- SPINNER DE CARGA -->
+                <div class="spinner" id="spinner"></div>
+
+                <!-- RESULTADO -->
+                <div id="resultadoContainer" style="display: none;">
+
+                    <!-- EXITO -->
+                    <div id="exitoContainer" style="display: none;">
+                        <div class="icono-estado icono-exito">
+                            <i class="fa-solid fa-check-circle"></i>
+                        </div>
+                        <div class="estado-titulo titulo-exito">
+                            ¡Pago Aprobado!
+                        </div>
+                        <p>Tu pago se ha procesado exitosamente.</p>
+
+                        <div class="detalles-pago">
+                            <div class="detalle-item">
+                                <span class="detalle-label">Número de Orden:</span>
+                                <span class="detalle-valor" id="detalleOrden">-</span>
+                            </div>
+                            <div class="detalle-item">
+                                <span class="detalle-label">Monto Pagado:</span>
+                                <span class="detalle-valor" id="detalleMonto">-</span>
+                            </div>
+                            <div class="detalle-item">
+                                <span class="detalle-label">Código de Respuesta:</span>
+                                <span class="detalle-valor" id="detalleCodigoRespuesta">-</span>
+                            </div>
+                            <div class="detalle-item">
+                                <span class="detalle-label">Código de Autorización:</span>
+                                <span class="detalle-valor" id="detalleAutorizacion">-</span>
+                            </div>
+                            <div class="detalle-item">
+                                <span class="detalle-label">Fecha/Hora:</span>
+                                <span class="detalle-valor" id="detalleFecha">-</span>
+                            </div>
+                        </div>
+
+                        <div class="botones-confirmacion">
+                            <a href="catalogo_p.html" class="btn-confirmacion btn-exito">
+                                <i class="fa-solid fa-shopping-bag"></i>
+                                Seguir Comprando
+                            </a>
+                            <button class="btn-confirmacion btn-secundario" onclick="descargarComprobante()">
+                                <i class="fa-solid fa-download"></i>
+                                Descargar Comprobante
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- ERROR -->
+                    <div id="errorContainer" style="display: none;">
+                        <div class="icono-estado icono-error">
+                            <i class="fa-solid fa-times-circle"></i>
+                        </div>
+                        <div class="estado-titulo titulo-error">
+                            Pago Rechazado
+                        </div>
+                        <p>No pudimos procesar tu pago. Por favor intenta nuevamente.</p>
+
+                        <div class="detalles-pago">
+                            <div class="detalle-item">
+                                <span class="detalle-label">Número de Orden:</span>
+                                <span class="detalle-valor" id="errorOrden">-</span>
+                            </div>
+                            <div class="detalle-item">
+                                <span class="detalle-label">Código de Error:</span>
+                                <span class="detalle-valor" id="errorCodigo">-</span>
+                            </div>
+                            <div class="detalle-item">
+                                <span class="detalle-label">Mensaje:</span>
+                                <span class="detalle-valor" id="errorMensaje">-</span>
+                            </div>
+                        </div>
+
+                        <div class="mensaje-error" id="mensajeError" style="display: none;">
+                            Por favor contacta a soporte o intenta con otra tarjeta.
+                        </div>
+
+                        <div class="botones-confirmacion">
+                            <a href="catalogo_p.html" class="btn-confirmacion btn-error">
+                                <i class="fa-solid fa-arrow-left"></i>
+                                Volver al Catálogo
+                            </a>
+                            <a href="carrito.html" class="btn-confirmacion btn-secundario">
+                                <i class="fa-solid fa-shopping-cart"></i>
+                                Ir al Carrito
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- ======================================== -->
+    <!-- JAVASCRIPT -->
+    <!-- ======================================== -->
+    <script src="/vista/js/mostrarAlerta.js"></script>
+    <script src="/vista/js/webpay_integration.js"></script>
+    <script src="/vista/js/pago-confirmado.js"></script>
+
+    <div id="contenedor-alertas"></div>
+</body>
+</html>
