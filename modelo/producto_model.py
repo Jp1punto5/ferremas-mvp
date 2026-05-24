@@ -103,3 +103,67 @@ def listar_productos_categoria(categoria):
     except Exception as e:
         print(f"Error en listar_productos_categoria: {e}")
         return []
+
+
+# =========================
+# ACTUALIZAR PRECIO USD
+# =========================
+
+def actualizar_precio_usd(codigo_producto, tasa_cambio):
+    """
+    Actualiza el precio en USD de un producto basado en precio_CL y tasa de cambio.
+    
+    Args:
+        codigo_producto (str): Código del producto
+        tasa_cambio (float): Tasa de cambio CLP a USD
+        
+    Returns:
+        bool: True si se actualizó correctamente, False si hay error
+    """
+    try:
+        query = """
+            UPDATE productos
+            SET precio_usd = ROUND(precio_cl / ?, 2)
+            WHERE codigo_producto = ?
+        """
+        ejecutar_consulta(query, (tasa_cambio, codigo_producto), fetch_one=False)
+        return True
+    except Exception as e:
+        print(f"Error en actualizar_precio_usd: {e}")
+        return False
+
+
+def actualizar_todos_precios_usd(tasa_cambio):
+    """
+    Actualiza los precios en USD de todos los productos.
+    
+    Args:
+        tasa_cambio (float): Tasa de cambio CLP a USD
+        
+    Returns:
+        dict: {"success": bool, "mensaje": str, "productos_actualizados": int}
+    """
+    try:
+        query = """
+            UPDATE productos
+            SET precio_usd = ROUND(precio_cl / ?, 2)
+        """
+        ejecutar_consulta(query, (tasa_cambio,), fetch_one=False)
+        
+        query_count = "SELECT COUNT(*) as total FROM productos"
+        resultado = ejecutar_consulta(query_count, fetch_one=True)
+        productos_actualizados = resultado['total'] if resultado else 0
+        
+        return {
+            "success": True,
+            "mensaje": f"Precios USD actualizados correctamente",
+            "productos_actualizados": productos_actualizados,
+            "tasa_cambio_usada": tasa_cambio
+        }
+    except Exception as e:
+        print(f"Error en actualizar_todos_precios_usd: {e}")
+        return {
+            "success": False,
+            "mensaje": f"Error al actualizar precios: {str(e)}",
+            "productos_actualizados": 0
+        }
