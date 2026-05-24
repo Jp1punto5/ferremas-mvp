@@ -208,7 +208,9 @@ function listarProductosCarrito()
                 producto.precio.toLocaleString(
                     'es-CL'
                 );
-
+            const subtotalUsd = producto.precio_usd * producto.cantidad;
+            const precioFormateadoUsd = producto.precio_usd.toFixed(2);
+            const subtotalFormateadoUsd = subtotalUsd.toFixed(2);
 
             const subtotalFormateado =
                 subtotal.toLocaleString(
@@ -252,20 +254,31 @@ function listarProductosCarrito()
 
 
                     <p>
-                        Precio unitario:
+                        Precio unitario CLP:
                         <strong>
                             $${precioFormateado}
+                        </strong>
+                    </p>
+                    <p>
+                        Precio unitario USD:
+                        <strong>
+                            $${precioFormateadoUsd}
                         </strong>
                     </p>
 
 
                     <p class="subtotal">
-                        Subtotal:
+                        Subtotal CLP:
                         <strong>
                             $${subtotalFormateado}
                         </strong>
                     </p>
-
+                    <p class="subtotal">
+                        Subtotal USD:
+                        <strong>
+                            $${subtotalFormateadoUsd}
+                        </strong>
+                    </p>
 
                     <div class="acciones-carrito">
 
@@ -455,6 +468,7 @@ function mostrarResumenCompra()
     /* ========================================= */
 
     let total = 0;
+    let totalUSD = 0;
     /* ========================================= */
     /* VALIDAR USUARIO LOGEADO */
     /* ========================================= */
@@ -475,26 +489,38 @@ function mostrarResumenCompra()
             total +=
                 producto.precio *
                 producto.cantidad;
+            
+            // Sumar total en USD
+            totalUSD +=
+                producto.precio_usd *
+                producto.cantidad;
         }
     );
     /* ========================================= */
     /* APLICAR DESCUENTO */
     /* ========================================= */
         let descuento = 0;
+        let descuentoUsd = 0;
         console.log("total= ",total);
         console.log(typeof total);
 
         if(usuarioLogeado)
         {
             descuento = Number(total) * 0.10;
+            //aplicar descuento dolar
+            descuentoUsd = Number(totalUSD) * 0.10;
 
             total = Number(total) - descuento;
+            totalUSD = Number(totalUSD) - descuentoUsd;
         }
 
     const totalFormateado =
         total.toLocaleString(
             'es-CL'
         );
+    
+    // Formatear total en USD
+    const totalUSDFormateado = totalUSD.toFixed(2).toLocaleString('en-US');
 
 
     /* ========================================= */
@@ -513,6 +539,12 @@ function mostrarResumenCompra()
             $${totalFormateado}
 
         </div>
+        
+        <p class="total-usd">
+            Equivalente en USD:
+            <strong>$$${totalUSDFormateado}</strong>
+        </p>
+
                 ${
                     usuarioLogeado
                     ?
@@ -616,6 +648,23 @@ function mostrarResumenCompra()
         botonLogout.addEventListener(
             'click',
             cerrarSesion
+        );
+    }
+
+    /* ========================================= */
+    /* BOTON WEBPAY */
+    /* ========================================= */
+
+    const botonWebpay =
+        document.querySelector(
+            '.btn-webpay'
+        );
+
+    if(botonWebpay)
+    {
+        botonWebpay.addEventListener(
+            'click',
+            procesarPagoWebpay
         );
     }
 
