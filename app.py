@@ -102,13 +102,6 @@ def serve_img(filename):
     return send_from_directory(os.path.join(vista_path, 'img'), filename)
 
 
-# Favicon - Comentado: archivo no existe en vista/
-# Si deseas usar favicon, coloca favicon.ico en la carpeta vista/
-# @app.route('/favicon.ico')
-# def favicon():
-#     """Servir favicon"""
-#     return send_from_directory(vista_path, 'favicon.ico', mimetype='image/x-icon')
-
 
 @app.route('/productos')
 def productos():
