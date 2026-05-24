@@ -1,6 +1,56 @@
 # Ferremas MVP
 
-Sistema MVP de Ferremas desarrollado con arquitectura MVC utilizando Flask y SQLite.
+Sistema MVP de Ferremas desarrollado utilizando arquitectura MVC con Flask y SQLite.
+
+Este repositorio corresponde al sistema principal del proyecto, encargado del frontend, lógica interna, autenticación de usuarios y base de datos local.
+
+---
+
+# Arquitectura General
+
+El proyecto Ferremas se encuentra dividido en 2 repositorios independientes que deben ejecutarse simultáneamente.
+
+## 1. ferremas-mvp
+
+Repositorio principal del sistema.
+
+Contiene:
+- Frontend
+- Backend interno
+- Arquitectura MVC
+- Base de datos SQLite
+- Carrito de compras
+- Flujo de checkout
+- Consumo de APIs externas
+- Login de usuarios
+- Registro de usuarios
+
+Puerto configurado:
+
+```txt
+http://127.0.0.1:5003
+```
+
+---
+
+## 2. ferremas-api
+
+Repositorio externo encargado de integraciones y servicios externos.
+
+Contiene:
+- Integración Webpay Plus (Transbank QA)
+- Conversión de divisas USD/CLP
+- Endpoints REST externos
+
+Puerto configurado:
+
+```txt
+http://127.0.0.1:5002
+```
+
+IMPORTANTE:
+
+Ambos proyectos deben ejecutarse simultáneamente para que todas las funcionalidades funcionen correctamente.
 
 ---
 
@@ -13,14 +63,14 @@ Sistema MVP de Ferremas desarrollado con arquitectura MVC utilizando Flask y SQL
 - HTML
 - CSS
 - JavaScript
+- Webpay Plus (Transbank QA)
+- API REST
 
 ---
 
 # Requisitos previos
 
 Instalar previamente en el computador:
-
-## Programas necesarios
 
 - Git
 - Python 3.x
@@ -30,47 +80,148 @@ Instalar previamente en el computador:
 
 # Verificar instalación de Python
 
-Abrir PowerShell y ejecutar:
+Abrir PowerShell o CMD y ejecutar:
 
 ```bash
 python --version
 ```
 
-También verificar pip:
+Verificar también pip:
 
 ```bash
 pip --version
 ```
 
-Si ambos comandos funcionan correctamente continuar.
+---
+
+# Clonar repositorios
+
+## Clonar ferremas-api
+
+```bash
+git clone https://github.com/Jp1punto5/ferremas-api
+```
 
 ---
 
-# Clonar repositorio
-
-Abrir Git Bash o PowerShell en la carpeta deseada y ejecutar:
+## Clonar ferremas-mvp
 
 ```bash
-git clone URL_DEL_REPOSITORIO
+git clone https://github.com/Jp1punto5/ferremas-mvp
 ```
 
-Ejemplo:
+---
+
+# Estructura esperada
+
+Se recomienda mantener ambos repositorios dentro de una misma carpeta:
+
+```txt
+Proyecto Ferremas/
+│
+├── ferremas-api/
+│
+└── ferremas-mvp/
+```
+
+---
+
+# Configuración de ferremas-api
+
+IMPORTANTE:
+
+El repositorio `ferremas-api` debe levantarse primero.
+
+---
+
+## Ingresar al proyecto
 
 ```bash
-git clone https://github.com/usuario/repositorio.git
+cd ferremas-api
 ```
+
+---
+
+## Abrir en Visual Studio Code
+
+```bash
+code .
+```
+
+---
+
+## Crear entorno virtual
+
+```bash
+python -m venv venv
+```
+
+---
+
+## Activar entorno virtual
+
+### PowerShell
+
+```bash
+.\venv\Scripts\Activate.ps1
+```
+
+### CMD
+
+```bash
+venv\Scripts\activate.bat
+```
+
+---
+
+## Instalar dependencias
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+## Ejecutar API
+
+```bash
+python app.py
+```
+
+---
+
+## Verificar ejecución
+
+Abrir navegador en:
+
+```txt
+http://127.0.0.1:5002
+```
+
+Se espera visualizar un mensaje indicando que la API se encuentra funcionando correctamente.
+
+Si la API se encuentra levantada correctamente se podrán utilizar:
+- Conversión USD/CLP
+- Integración Webpay
+- Confirmación de pagos
+
+---
+
+# Configuración de ferremas-mvp
+
+Una vez levantada la API externa continuar con este repositorio.
 
 ---
 
 # Ingresar al proyecto
 
 ```bash
-cd "Repo - Ferremas"
+cd ferremas-mvp
 ```
 
 ---
 
-# Abrir proyecto en Visual Studio Code
+# Abrir en Visual Studio Code
 
 ```bash
 code .
@@ -80,13 +231,11 @@ code .
 
 # Crear entorno virtual
 
-Ejecutar:
-
 ```bash
 python -m venv venv
 ```
 
-Esto creará la carpeta:
+Esto creará automáticamente la carpeta:
 
 ```txt
 venv/
@@ -118,7 +267,7 @@ al inicio de la terminal.
 
 ---
 
-# Instalar dependencias del proyecto
+# Instalar dependencias
 
 Con el entorno virtual activo ejecutar:
 
@@ -126,10 +275,7 @@ Con el entorno virtual activo ejecutar:
 pip install -r requirements.txt
 ```
 
-Esto instalará automáticamente:
-- Flask
-- Flask-CORS
-- y todas las librerías necesarias.
+Esto instalará automáticamente todas las librerías necesarias del proyecto.
 
 ---
 
@@ -138,8 +284,13 @@ Esto instalará automáticamente:
 Ejecutar:
 
 ```bash
-python MODELO/init_db.py
+python modelo/init_db.py
 ```
+
+Esto generará automáticamente:
+- Base de datos SQLite
+- Usuarios iniciales
+- Productos de prueba para el MVP
 
 ---
 
@@ -156,7 +307,130 @@ python app.py
 Abrir navegador en:
 
 ```txt
-http://127.0.0.1:5000
+http://127.0.0.1:5003/vista/catalogo_p.html
+```
+
+Si el proyecto se encuentra funcionando correctamente se visualizará el catálogo principal del sistema.
+
+---
+
+# Orden correcto de ejecución
+
+IMPORTANTE:
+
+El orden correcto para ejecutar el sistema es:
+
+## 1. Levantar ferremas-api
+
+```txt
+Puerto 5002
+```
+
+IMPORTANTE:
+
+Si se modifica el puerto será necesario actualizar los `fetch()` y endpoints utilizados por el frontend.
+
+---
+
+## 2. Levantar ferremas-mvp
+
+```txt
+Puerto 5003
+```
+
+IMPORTANTE:
+
+Si se modifica el puerto será necesario actualizar las rutas correspondientes del proyecto.
+
+---
+
+## 3. Abrir aplicación
+
+```txt
+http://127.0.0.1:5003/vista/catalogo_p.html
+```
+
+---
+
+# Tarjetas de prueba Webpay Plus (QA)
+
+El proyecto utiliza el entorno de pruebas QA de Transbank Webpay Plus.
+
+Estas tarjetas permiten simular pagos aprobados y rechazados durante las pruebas del sistema.
+
+---
+
+## Pago aprobado
+
+```txt
+Número tarjeta: 4051885600446623
+CVV: 123
+Fecha expiración: Cualquier fecha futura
+RUT: 11.111.111-1
+Clave: 123
+Resultado esperado: TRANSACCIÓN APROBADA
+```
+
+---
+
+## Pago rechazado
+
+```txt
+Número tarjeta: 4051885600446607
+CVV: 123
+Fecha expiración: Cualquier fecha futura
+RUT: 11.111.111-1
+Clave: 123
+Resultado esperado: TRANSACCIÓN RECHAZADA
+```
+
+---
+
+# Funcionalidades actuales
+
+- Arquitectura MVC
+- Base de datos SQLite
+- Visualización de productos
+- Login de usuarios
+- Registro de usuarios
+- Carrito de compras
+- Flujo de checkout
+- Conversión USD/CLP
+- Integración API externa
+- Integración Webpay Plus
+- Confirmación de pagos
+- Persistencia temporal mediante SessionStorage
+- Identificación de usuario activo
+- Sistema de descuentos por login
+- Diseño responsive básico
+
+---
+
+# Estructura del proyecto
+
+```txt
+ferremas-mvp/
+│
+├── modelo/
+│     ├── conexion.py
+│     ├── database.sql
+│     ├── init_db.py
+│     ├── producto_model.py
+│     ├── seed_data.py
+│     ├── usuario_model.py
+│     └── utils.py
+│
+├── vista/
+│     ├── css/
+│     ├── js/
+│     ├── img/
+│     ├── catalogo_p.html
+│     └── ...
+│
+├── app.py
+├── requirements.txt
+├── README.md
+└── .gitignore
 ```
 
 ---
@@ -169,7 +443,7 @@ Cada vez que se instale una nueva librería ejecutar:
 pip freeze > requirements.txt
 ```
 
-Luego subir cambios a GitHub.
+Luego subir los cambios al repositorio.
 
 ---
 
@@ -191,25 +465,37 @@ pip freeze > requirements.txt
 
 # Subir cambios a GitHub
 
-Ver archivos modificados:
+IMPORTANTE:
+
+Los siguientes comandos solo deben utilizarse si se tiene acceso para subir cambios al repositorio.
+
+---
+
+## Ver archivos modificados
 
 ```bash
 git status
 ```
 
-Agregar cambios:
+---
+
+## Agregar cambios
 
 ```bash
 git add .
 ```
 
-Crear commit:
+---
+
+## Crear commit
 
 ```bash
 git commit -m "Descripción cambios"
 ```
 
-Subir cambios:
+---
+
+## Subir cambios
 
 ```bash
 git push
@@ -217,7 +503,7 @@ git push
 
 ---
 
-# Descargar cambios nuevos del repositorio
+# Descargar cambios del repositorio
 
 ```bash
 git pull
@@ -249,61 +535,22 @@ pip install flask
 
 ## Error: python no reconocido
 
-Verificar que Python fue instalado con:
+Verificar que Python fue instalado con la opción:
 
 ```txt
 Add Python to PATH
 ```
 
-habilitado.
+habilitada.
 
 ---
 
-# Estructura del proyecto
+# Notas importantes
 
-```txt
-Repo - Ferremas/
-│
-├── MODELO/
-│     ├── conexion.py
-│     ├── database.sql
-│     └── init_db.py
-│
-├── VISTA/
-│     ├── css/
-│     ├── js/
-│     ├── img/
-│     └── templates/
-│
-├── CONTROLADOR/
-│
-├── venv/
-│
-├── app.py
-├── requirements.txt
-├── README.md
-└── .gitignore
-```
+- No subir la carpeta `venv/`
+- No subir archivos `.db`
+- Mantener actualizado `requirements.txt`
+- Ejecutar primero `ferremas-api`
+- Verificar que ambos puertos estén disponibles
 
 ---
-
-# Funcionalidades actuales
-
-- Visualización productos
-- Integración SQLite
-- Arquitectura MVC
-- Conversión CLP/USD
-- Integración API dólar
-- Diseño responsive básico
-
----
-
-# Funcionalidades futuras
-
-- Login usuarios
-- Registro usuarios
-- Carrito compras
-- Integración WebPay
-- Sistema descuentos
-- Gestión stock
-- Panel administrador
