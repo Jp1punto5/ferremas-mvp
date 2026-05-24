@@ -10,8 +10,13 @@ venv/
 
 # SQLite
 *.db
+
 # VS Code
 .vscode/
 
 # Logs
 *.log
+
+# Documentación de prueba e implementación - No subir a repositorio profesional
+README_WEBPAY_MVP.md
+REFACTORING_CONFIRMACION.md
