@@ -108,17 +108,17 @@ O ejecutar un escenario específico en modo headless:
 
 **Escenario L1 — Carga normal (50 usuarios, sistema estable):**
 ```bash
-python -m locust -f test/locustfile.py --class-picker --headless -u 50 -r 5 --run-time 90s --host http://127.0.0.1:5002 --csv test/resultados/run_L1
+python -m locust -f test/locustfile.py --headless -u 50 -r 5 --run-time 90s --host http://127.0.0.1:5002 --csv test/resultados/run_L1 FerremasCargarUser
 ```
 
 **Escenario E1 — Estrés catálogo (350 usuarios, detecta límite):**
 ```bash
-python -m locust -f test/locustfile.py --class-picker --headless -u 350 -r 10 --run-time 90s --host http://127.0.0.1:5002 --csv test/resultados/run_E1
+python -m locust -f test/locustfile.py --headless -u 350 -r 10 --run-time 90s --host http://127.0.0.1:5002 --csv test/resultados/run_E1 FerremasEstres1User
 ```
 
 **Escenario E2 — Estrés checkout completo (350 usuarios, flujo más pesado):**
 ```bash
-python -m locust -f test/locustfile.py --class-picker --headless -u 350 -r 10 --run-time 90s --host http://127.0.0.1:5002 --csv test/resultados/run_E2
+python -m locust -f test/locustfile.py --headless -u 350 -r 10 --run-time 90s --host http://127.0.0.1:5002 --csv test/resultados/run_E2 FerremasEstres2User
 ```
 
 > Para detener antes del tiempo: `Ctrl+C`
@@ -142,7 +142,7 @@ python -m locust -f test/locustfile.py --class-picker --headless -u 350 -r 10 --
 |------------------------------|------------|-----------------------------------------------|
 | `run_L1_stats.csv`           | L1 — 50u   | error%=0.000, p95=36ms → **ESTABLE**          |
 | `run_E1_stats.csv`           | E1 — 350u  | error%=3.978, p95=2900ms → **QUIEBRE**        |
-| `run_E2_stats.csv`           | E2 — 350u  | error%=20.13, p95=6600ms → **QUIEBRE SEVERO** |
+| `run_E2_stats.csv`           | E2 — 350u  | error%=68.594, p95=7200ms → **QUIEBRE TOTAL** |
 | `EVIDENCIA_CARGA_ESTRES.txt` |  **Todos** | Análisis completo con desglose                |
 
 > Error principal en quiebre E1/E2: `WinError 10048` — agotamiento de sockets en Windows.

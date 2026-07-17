@@ -9,7 +9,7 @@ from locust import HttpUser, task, between
 # Comando:
 #   python -m locust -f test/locustfile.py --headless -u 50 -r 5
 #     --run-time 90s --host http://127.0.0.1:5002
-#     --csv test/resultados/run_carga --class-picker
+#     --csv test/resultados/run_L1 FerremasCargarUser
 # ============================================================
 
 class FerremasCargarUser(HttpUser):
@@ -42,7 +42,7 @@ class FerremasCargarUser(HttpUser):
 # Comando:
 #   python -m locust -f test/locustfile.py --headless -u 200 -r 20
 #     --run-time 90s --host http://127.0.0.1:5002
-#     --csv test/resultados/run_estres1 --class-picker
+#     --csv test/resultados/run_E1 FerremasEstres1User
 # ============================================================
 
 class FerremasEstres1User(HttpUser):
@@ -72,7 +72,7 @@ class FerremasEstres1User(HttpUser):
 # Comando:
 #   python -m locust -f test/locustfile.py --headless -u 350 -r 30
 #     --run-time 90s --host http://127.0.0.1:5002
-#     --csv test/resultados/run_estres2 --class-picker
+#     --csv test/resultados/run_E2 FerremasEstres2User
 # ============================================================
 
 class FerremasEstres2User(HttpUser):
@@ -98,11 +98,11 @@ class FerremasEstres2User(HttpUser):
             'amount': 12000,
             'return_url': 'http://127.0.0.1:5003/pago-confirmado'
         }
-        self.client.post("/webpay/init", json=payload, name="ESTRES2 - POST /webpay/init")
+        self.client.post("/crear-pago", json=payload, name="ESTRES2 - POST /crear-pago")
 
     @task(1)
     def dolar(self):
-        self.client.get("/api/dolar", name="ESTRES2 - GET /api/dolar")
+        self.client.get("/dolar", name="ESTRES2 - GET /dolar")
 
 
 # ============================================================

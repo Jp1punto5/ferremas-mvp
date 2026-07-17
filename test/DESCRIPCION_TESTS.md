@@ -229,10 +229,10 @@ venv\Scripts\activate.bat
 # Selector interactivo de escenario (recomendado):
 python -m locust -f test/locustfile.py --class-picker
 
-# O ejecutar un escenario especifico en headless:
-python -m locust -f test/locustfile.py --class-picker --headless -u 50  -r 5  --run-time 90s --host http://127.0.0.1:5002 --csv test/resultados/run_L1
-python -m locust -f test/locustfile.py --class-picker --headless -u 350 -r 10 --run-time 90s --host http://127.0.0.1:5002 --csv test/resultados/run_E1
-python -m locust -f test/locustfile.py --class-picker --headless -u 350 -r 10 --run-time 90s --host http://127.0.0.1:5002 --csv test/resultados/run_E2
+# O ejecutar un escenario especifico en headless (nombre de clase al final, sin --):
+python -m locust -f test/locustfile.py --headless -u 50  -r 5  --run-time 90s --host http://127.0.0.1:5002 --csv test/resultados/run_L1 FerremasCargarUser
+python -m locust -f test/locustfile.py --headless -u 350 -r 10 --run-time 90s --host http://127.0.0.1:5002 --csv test/resultados/run_E1 FerremasEstres1User
+python -m locust -f test/locustfile.py --headless -u 350 -r 10 --run-time 90s --host http://127.0.0.1:5002 --csv test/resultados/run_E2 FerremasEstres2User
 ```
 
 > Locust ya esta incluido en `requirements.txt`. No se requiere instalacion adicional.
@@ -250,10 +250,11 @@ python -m locust -f test/locustfile.py --class-picker --headless -u 350 -r 10 --
 |------------------------------|----------------------|--------|---------|-------------------|
 | `run_L1_stats.csv`           | L1 — 50u             | 0.000% | 36 ms   | ESTABLE           |
 | `run_E1_stats.csv`           | E1 — 350u            | 3.978% | 2900 ms | QUIEBRE           |
-| `run_E2_stats.csv`           | E2 — 350u (checkout) | 20.13% | 6600 ms | QUIEBRE SEVERO    |
+| `run_E2_stats.csv`           | E2 — 350u (checkout) | 68.59% | 7200 ms | QUIEBRE TOTAL     |
 | `EVIDENCIA_CARGA_ESTRES.txt` | **Todos**            | ------ | ------- | Analisis completo |
 
-- Error relevante observado en E1/E2: `WinError 10048` — agotamiento de sockets en Windows.
+- Error E1: `WinError 10048` — agotamiento de sockets en Windows.
+- Error E2: `WinError 10061` — ferremas-api crasheo completamente bajo 350u en flujo checkout (datos reales con rutas corregidas). Crash desde segundo 88. p95=7200ms, error%=68.6%. Limite practico checkout: <= 50 usuarios.
 - run_u50_* y run_u350_* tambien conservados (equivalentes a L1 y E1 respectivamente).
 
 ---

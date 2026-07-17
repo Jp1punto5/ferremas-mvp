@@ -51,7 +51,7 @@ Pruebas de carga y estres (Locust) — 3 escenarios — REQUIEREN ferremas-api
 |----|------------------------|-----------------------|----------|--------------|--------------------------|
 | L1 | FerremasCargarUser     | Carga normal          | u=50     | 1–3 s        | ESTABLE (evidencia real) |
 | E1 | FerremasEstres1User    | Estres catalogo       | u=350    | 0.1–0.5 s    | QUIEBRE en u=350         |
-| E2 | FerremasEstres2User    | Estres flujo checkout | u=350    | 0.05–0.3 s   | QUIEBRE SEVERO           |
+| E2 | FerremasEstres2User    | Estres flujo checkout | u=350    | 0.05–0.3 s   | QUIEBRE TOTAL en u=350   |
 
 ---
 
@@ -90,17 +90,20 @@ Cambios principales realizados
 
 Prueba de carga — tabla para informe
 -----------------------------------------
-| Escenario | Concurrentes | RPS    | p50 (ms) | p95 (ms) | Error %  | Estado  |
-|-----------|--------------|--------|----------|----------|----------|---------|
-| L1        | 50           | 105.54 | 9        | 36       | 0.000    | ESTABLE |
-| E1        | 350          | 276.05 | 110      | 2900     | 3.978    | QUIEBRE |
-| E2        | 350          | 435.48 | 290      | 6600     | 20.13    | QUIEBRE SEVERO |
+| Escenario | Concurrentes | RPS    | p50 (ms) | p95 (ms) | Error %  | Estado        |
+|-----------|--------------|--------|----------|----------|----------|---------------|
+| L1        | 50           | 105.54 | 9        | 36       | 0.000    | ESTABLE       |
+| E1        | 350          | 276.05 | 110      | 2900     | 3.978    | QUIEBRE       |
+| E2        | 350          | 84.34  | 2000     | 7200     | 68.594   | QUIEBRE TOTAL |
+
+Nota E2: WinError 10061 en todos los endpoints (crash de ferremas-api bajo 350u en checkout).
+Crash iniciado en segundo 88. Limite practico checkout: <= 50 usuarios concurrentes.
 
 Comandos oficiales (terminal integrada VS Code, CMD):
   venv\Scripts\activate.bat
-  python -m locust -f test/locustfile.py --class-picker --headless -u 50  -r 5  --run-time 90s --host http://127.0.0.1:5002 --csv test/resultados/run_L1
-  python -m locust -f test/locustfile.py --class-picker --headless -u 350 -r 10 --run-time 90s --host http://127.0.0.1:5002 --csv test/resultados/run_E1
-  python -m locust -f test/locustfile.py --class-picker --headless -u 350 -r 10 --run-time 90s --host http://127.0.0.1:5002 --csv test/resultados/run_E2
+  python -m locust -f test/locustfile.py --headless -u 50  -r 5  --run-time 90s --host http://127.0.0.1:5002 --csv test/resultados/run_L1 FerremasCargarUser
+  python -m locust -f test/locustfile.py --headless -u 350 -r 10 --run-time 90s --host http://127.0.0.1:5002 --csv test/resultados/run_E1 FerremasEstres1User
+  python -m locust -f test/locustfile.py --headless -u 350 -r 10 --run-time 90s --host http://127.0.0.1:5002 --csv test/resultados/run_E2 FerremasEstres2User
 
 Detener antes del tiempo: Ctrl+C
 

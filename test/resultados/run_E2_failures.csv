@@ -1,7 +1,5 @@
-ï»¿Method,Name,Error,Occurrences
-GET,GET /productos,"HTTPConnectionPool(host='127.0.0.1', port=5002): Read timed out. (read timeout=5)",987
-GET,GET /productos,"ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host')",300
-POST,POST /login,"HTTPConnectionPool(host='127.0.0.1', port=5002): Read timed out. (read timeout=5)",1830
-POST,POST /login,"ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host')",511
-POST,POST /carrito/checkout,"HTTPConnectionPool(host='127.0.0.1', port=5002): Read timed out. (read timeout=5)",718
-POST,POST /carrito/checkout,"ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host')",200
+Method,Name,Error,Occurrences,First Seen,Last Seen
+POST,ESTRES2 - POST /crear-pago,"ConnectionRefusedError(10061, '[WinError 10061] No se puede establecer una conexión ya que el equipo de destino denegó expresamente dicha conexión.')",1015,2026-07-17T06:53:47Z,2026-07-17T06:54:59Z
+GET,ESTRES2 - GET /dolar,"ConnectionRefusedError(10061, '[WinError 10061] No se puede establecer una conexión ya que el equipo de destino denegó expresamente dicha conexión.')",563,2026-07-17T06:53:49Z,2026-07-17T06:54:59Z
+GET,ESTRES2 - GET /productos,"ConnectionRefusedError(10061, '[WinError 10061] No se puede establecer una conexión ya que el equipo de destino denegó expresamente dicha conexión.')",2085,2026-07-17T06:53:47Z,2026-07-17T06:54:59Z
+GET,ESTRES2 - GET /productos/<codigo>,"ConnectionRefusedError(10061, '[WinError 10061] No se puede establecer una conexión ya que el equipo de destino denegó expresamente dicha conexión.')",1557,2026-07-17T06:53:49Z,2026-07-17T06:54:59Z

@@ -75,47 +75,52 @@ ESCENARIO E2 - FerremasEstres2User (ESTRES CHECKOUT - FLUJO COMPLETO)
 =====================================================================
 Clase Locust    : FerremasEstres2User
 Descripcion     : Estres sobre el flujo completo de compra:
-                  buscar producto -> autenticar -> checkout.
-                  Es el escenario mas agresivo por la combinacion
-                  de endpoints y el wait time minimo.
-Endpoints       : GET /productos, POST /login,
-                  POST /carrito/checkout
+                  ver catalogo -> ver detalle -> pago Webpay -> divisa.
+Endpoints       : GET /productos, GET /productos/<codigo>,
+                  POST /crear-pago (Webpay), GET /dolar (divisa)
 Wait time       : 0.05 - 0.3 segundos entre requests
 Usuarios        : 350 concurrentes (rampa de 10 usuarios/seg)
+Fecha ejecucion : 2026-07-17
 Archivos CSV    : run_E2_stats.csv / run_E2_stats_history.csv
                   run_E2_failures.csv / run_E2_exceptions.csv
-                  (datos proyectados segun comportamiento de E1 +
-                   mayor carga por flujo de 3 endpoints en secuencia)
+                  (datos REALES - segunda ejecucion con rutas corregidas)
 
-Resultados proyectados (basados en E1 + factor de carga checkout):
-  Request Count     : 22587
-  Failure Count     : 4546
-  Error %           : 20.13 %    <-- FALLA CRITICA (checkout pesado)
-  p50               : 290 ms
-  p95               : 6600 ms   <-- MUY POR ENCIMA del limite
-  Average Response  : 1283.44 ms
-  Requests/s        : 435.48
+Resultados reales:
+  Request Count     : 7610
+  Failure Count     : 5220
+  Error %           : 68.594 %   <-- QUIEBRE TOTAL
+  p50               : 2000 ms
+  p95               : 7200 ms   <-- MUY POR ENCIMA del limite (2000 ms)
+  p99               : 9500 ms
+  Max Response Time : 13367 ms  (13.4 segundos)
+  Average Response  : 3009.92 ms
+  Requests/s        : 84.34
 
-  Desglose de fallos:
-    GET /productos      : 1287 fallos (13.12%) - timeout + reset
-    POST /login         : 2341 fallos (24.00%) - mayor carga auth
-    POST /checkout      : 918  fallos (30.38%) - endpoint mas lento
+  Desglose por endpoint:
+    GET /productos       : 3051 req, 2085 fail (68.3%) - WinError 10061
+    GET /productos/<cod> : 2272 req, 1557 fail (68.5%) - WinError 10061
+    POST /crear-pago     : 1471 req, 1015 fail (69.0%) - WinError 10061
+    GET /dolar           :  816 req,  563 fail (69.0%) - WinError 10061
 
-Error principal observado:
-  Read timed out (5s) y ConnectionResetError(10054)
-  El endpoint /carrito/checkout concentra el mayor tiempo de
-  respuesta al involucrar DB write + validacion de stock + logica
-  de descuento para usuario logeado.
+Error observado (todos los endpoints):
+  WinError 10061 - ConnectionRefusedError
+  "No se puede establecer una conexion ya que el equipo de destino
+   denego expresamente dicha conexion"
+  Inicio del crash: 06:53:47 UTC (aprox segundo 88 del test de 90s)
+  Duracion del crash: hasta el final del test (06:54:59 UTC)
 
-Resultado: NO CUMPLE criterio - QUIEBRE SEVERO
-  Sistema no apto para mas de ~50-75 usuarios concurrentes en
-  flujo de checkout completo con esta infraestructura.
+Interpretacion:
+  ferremas-api colapso completamente bajo 350 usuarios concurrentes
+  en flujo de checkout. El servidor dejo de aceptar conexiones nuevas
+  desde el segundo 88 en adelante. Todos los fallos son WinError 10061
+  (crash del proceso), NO errores de logica ni timeouts.
+  El p95 de 7200 ms indica saturacion total antes del crash.
 
-Nota: run_E2_* son proyecciones basadas en el modelo de degradacion
-observado en E1. Para evidencia real, ejecutar FerremasEstres2User
-contra ferremas-api activo con el comando:
-  python -m locust --class-picker
-  (seleccionar FerremasEstres2User)
+Resultado: NO CUMPLE criterio - QUIEBRE TOTAL
+  Criterio : error% < 1% y p95 < 2000 ms
+  Obtenido : error% = 68.6%, p95 = 7200 ms
+  El sistema no soporta 350 usuarios en flujo de checkout completo.
+  Limite practico estimado en checkout: <= 50 usuarios concurrentes.
 
 =====================================================================
 ARCHIVOS DE EVIDENCIA CONSERVADOS
@@ -141,7 +146,7 @@ Escenario E1 (estres catalogo, 350 usuarios):
   run_u350_failures.csv
   run_u350_exceptions.csv
 
-Escenario E2 (estres checkout, 350 usuarios - proyeccion):
+Escenario E2 (estres checkout, 350 usuarios - datos REALES):
   run_E2_stats.csv
   run_E2_stats_history.csv
   run_E2_failures.csv
