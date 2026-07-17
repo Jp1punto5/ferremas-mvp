@@ -1,0 +1,4 @@
+Method,Name,Error,Occurrences,First Seen,Last Seen
+GET,GET /productos/<codigo>,"OSError(10048, '[WinError 10048] Solo se permite un uso de cada dirección de socket (protocolo/dirección de red/puerto)')",83,2026-07-16T20:27:11Z,2026-07-16T20:27:23Z
+GET,GET /productos/categoria/<categoria>,"OSError(10048, '[WinError 10048] Solo se permite un uso de cada dirección de socket (protocolo/dirección de red/puerto)')",274,2026-07-16T20:27:09Z,2026-07-16T20:27:24Z
+GET,GET /productos,"OSError(10048, '[WinError 10048] Solo se permite un uso de cada dirección de socket (protocolo/dirección de red/puerto)')",545,2026-07-16T20:27:09Z,2026-07-16T20:27:24Z

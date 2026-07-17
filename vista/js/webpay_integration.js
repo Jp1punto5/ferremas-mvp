@@ -54,29 +54,59 @@ async function procesarPagoWebpay() {
             return_url: returnUrl
         });
 
-        // Llamar API de ferremas-api
-        const response = await fetch('http://127.0.0.1:5002/crear-pago', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                buy_order: numeroOrden,
-                session_id: sessionId,
-                amount: Math.round(total),
-                return_url: returnUrl
-            })
-        });
+        // Llamar API de ferremas-api, si falla usar mock local
+        const PRIMARY = 'http://127.0.0.1:5002/crear-pago';
+        const MOCK = 'http://127.0.0.1:5050/webpay/init';
 
-        const data = await response.json();
+        let data = null;
 
-        if (!response.ok) {
-            console.error("❌ Error de API:", data);
-            mostrarAlerta(`Error: ${data.error || 'Error desconocido'}`, "error");
-            return;
+        try {
+            const response = await fetch(PRIMARY, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    buy_order: numeroOrden,
+                    session_id: sessionId,
+                    amount: Math.round(total),
+                    return_url: returnUrl
+                })
+            });
+
+            data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(data.error || `HTTP ${response.status}`);
+            }
+
+            console.log('Usando ferremas-api para crear pago');
+        } catch (errPrimary) {
+            console.warn('ferremas-api no disponible o falló crear-pago, usando mock:', errPrimary.message);
+            // intentar mock
+            const respMock = await fetch(MOCK, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    buy_order: numeroOrden,
+                    session_id: sessionId,
+                    amount: Math.round(total),
+                    return_url: returnUrl
+                })
+            });
+            data = await respMock.json();
+            if (!respMock.ok) {
+                console.error('Mock webpay falló:', data);
+                mostrarAlerta('Error al iniciar el pago (mock fallback)', 'error');
+                return;
+            }
+            console.log('Usando mock de Webpay para crear pago');
         }
 
-        if (data.token && data.url) {
+        // Compatibilidad: aceptar token o token_ws
+        const tokenValue = data.token || data.token_ws || data.token_ws;
+
+        if (tokenValue && data.url) {
             console.log("✅ Token recibido:", data.token);
             console.log("🔗 Redirigiendo a Webpay...");
 
@@ -113,15 +143,29 @@ async function confirmarPagoWebpay(tokenWs) {
         const formData = new FormData();
         formData.append('token_ws', tokenWs);
 
-        const response = await fetch('http://127.0.0.1:5002/confirmar', {
-            method: 'POST',
-            body: formData
-        });
+        // Intentar confirmar con ferremas-api; si falla, usar mock
+        const PRIMARY_CONFIRM = 'http://127.0.0.1:5002/confirmar';
+        const MOCK_CONFIRM = 'http://127.0.0.1:5050/webpay/commit';
 
-        const data = await response.json();
-        console.log("📥 Respuesta de confirmación:", data);
-
-        return data;
+        try {
+            const response = await fetch(PRIMARY_CONFIRM, { method: 'POST', body: formData });
+            const data = await response.json();
+            if (!response.ok) throw new Error(data.error || `HTTP ${response.status}`);
+            console.log("📥 Respuesta de confirmación (ferremas-api):", data);
+            return data;
+        } catch (errPrimary) {
+            console.warn('ferremas-api no disponible para confirmación, usando mock:', errPrimary.message);
+            try {
+                const respMock = await fetch(MOCK_CONFIRM, { method: 'POST', body: formData });
+                const dataMock = await respMock.json();
+                if (!respMock.ok) throw new Error(dataMock.error || `HTTP ${respMock.status}`);
+                console.log("📥 Respuesta de confirmación (mock):", dataMock);
+                return dataMock;
+            } catch (errMock) {
+                console.error('Error en confirmación con mock:', errMock.message);
+                return { success: false, error: errMock.message };
+            }
+        }
 
     } catch (error) {
         console.error("❌ Error al confirmar pago:", error);

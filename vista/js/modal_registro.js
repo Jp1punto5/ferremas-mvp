@@ -188,7 +188,7 @@ async function crearCuenta()
     {
         const respuesta =
             await fetch(
-                'http://127.0.0.1:5003/registro',
+                'http://127.0.0.1:5002/registro',
                 {
                     method: 'POST',
 

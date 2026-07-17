@@ -1,29 +1,27 @@
 # Ferremas MVP
 
-Sistema MVP de Ferremas desarrollado utilizando arquitectura MVC con Flask y SQLite.
+Sistema MVP de Ferremas desarrollado utilizando arquitectura MVC con Flask.
 
-Este repositorio corresponde al sistema principal del proyecto, encargado del frontend, lógica interna, autenticación de usuarios y base de datos local.
+Este repositorio corresponde al frontend del proyecto, encargado de la interfaz de usuario, renderizado de páginas y la suite de pruebas local. La base de datos SQLite y la lógica de negocio residen en `ferremas-api`.
 
 ---
 
 # Arquitectura General
 
-El proyecto Ferremas se encuentra dividido en 2 repositorios independientes que deben ejecutarse simultáneamente.
+El proyecto Ferremas se encuentra dividido en 2 repositorios independientes. Para ejecutar todas las funcionalidades (UI completa + integraciones) se recomienda ejecutar ambos: `ferremas-api` y `ferremas-mvp`. Sin embargo, la suite de pruebas de `ferremas-mvp` está diseñada para ejecutarse sin levantar `ferremas-api`.
 
 ## 1. ferremas-mvp
 
 Repositorio principal del sistema.
 
 Contiene:
-- Frontend
-- Backend interno
-- Arquitectura MVC
-- Base de datos SQLite
+- Frontend (HTML, CSS, JavaScript)
+- Servidor Flask para servir páginas estáticas
+- Arquitectura MVC (vista)
 - Carrito de compras
 - Flujo de checkout
-- Consumo de APIs externas
-- Login de usuarios
-- Registro de usuarios
+- Login y registro de usuarios (consume ferremas-api)
+- Suite de pruebas (unittest + Locust)
 
 Puerto configurado:
 
@@ -35,9 +33,10 @@ http://127.0.0.1:5003
 
 ## 2. ferremas-api
 
-Repositorio externo encargado de integraciones y servicios externos.
+Repositorio externo encargado de integraciones, servicios externos y base de datos.
 
 Contiene:
+- Base de datos SQLite (schema, seed, modelos)
 - Integración Webpay Plus (Transbank QA)
 - Conversión de divisas USD/CLP
 - Endpoints REST externos
@@ -130,7 +129,7 @@ Proyecto Ferremas/
 
 IMPORTANTE:
 
-El repositorio `ferremas-api` debe levantarse primero.
+Para ejecutar la aplicación completa (UI + API) levantar primero `ferremas-api` y luego `ferremas-mvp`. Si solo desea ejecutar la suite de pruebas de `ferremas-mvp`, no es necesario levantar `ferremas-api`.
 
 ---
 
@@ -177,8 +176,23 @@ venv\Scripts\activate.bat
 ## Instalar dependencias
 
 ```bash
-pip install -r requirements.txt
+python -m pip install -r requirements.txt
 ```
+
+---
+
+## Crear base de datos SQLite
+
+Este paso solo se realiza la primera vez (o si se borra la BD):
+
+```bash
+python modelo/init_db.py
+```
+
+Esto genera automáticamente:
+- Base de datos SQLite (`ferremas.db`)
+- Tablas del schema
+- Datos de prueba (productos y usuarios iniciales)
 
 ---
 
@@ -201,19 +215,14 @@ http://127.0.0.1:5002
 Se espera visualizar un mensaje indicando que la API se encuentra funcionando correctamente.
 
 Si la API se encuentra levantada correctamente se podrán utilizar:
+- Base de datos (productos, usuarios)
 - Conversión USD/CLP
 - Integración Webpay
 - Confirmación de pagos
 
 ---
 
-# Configuración de ferremas-mvp
-
-Una vez levantada la API externa continuar con este repositorio.
-
----
-
-# Ingresar al proyecto
+## Ingresar al proyecto
 
 ```bash
 cd ferremas-mvp
@@ -272,25 +281,12 @@ al inicio de la terminal.
 Con el entorno virtual activo ejecutar:
 
 ```bash
-pip install -r requirements.txt
+python -m pip install -r requirements.txt
 ```
 
 Esto instalará automáticamente todas las librerías necesarias del proyecto.
 
----
-
-# Crear base de datos SQLite
-
-Ejecutar:
-
-```bash
-python modelo/init_db.py
-```
-
-Esto generará automáticamente:
-- Base de datos SQLite
-- Usuarios iniciales
-- Productos de prueba para el MVP
+Nota (Windows/venv): si `pip` falla por launcher, usar siempre `python -m pip ...`.
 
 ---
 
@@ -352,6 +348,20 @@ http://127.0.0.1:5003/vista/catalogo_p.html
 
 ---
 
+# Pruebas (unitarias, integración, carga y estrés)
+
+Para ejecución de pruebas y comandos oficiales de Locust en la terminal integrada de VS Code, revisar:
+
+```txt
+ferremas-mvp/test/README.md
+```
+
+Ahí se documenta el paso a paso para:
+- Ejecutar `python -m unittest discover -v`
+- Ejecutar Locust con barrido incremental de concurrencia y detectar el límite real de quiebre.
+
+---
+
 # Tarjetas de prueba Webpay Plus (QA)
 
 El proyecto utiliza el entorno de pruebas QA de Transbank Webpay Plus.
@@ -388,21 +398,20 @@ Resultado esperado: TRANSACCIÓN RECHAZADA
 
 # Funcionalidades actuales
 
-- Arquitectura MVC
-- Base de datos SQLite
-- Visualización de productos
-- Login de usuarios
-- Registro de usuarios
+- Arquitectura MVC (vista)
+- Visualización de productos (consume ferremas-api)
+- Login de usuarios (consume ferremas-api)
+- Registro de usuarios (consume ferremas-api)
 - Carrito de compras
 - Flujo de checkout
-- Conversión USD/CLP
-- Integración API externa
-- Integración Webpay Plus
+- Conversión USD/CLP (consume ferremas-api)
+- Integración Webpay Plus (consume ferremas-api)
 - Confirmación de pagos
 - Persistencia temporal mediante SessionStorage
 - Identificación de usuario activo
 - Sistema de descuentos por login
 - Diseño responsive básico
+- Suite de 13 tests unitarios e integración (sin levantar ferremas-api)
 
 ---
 
@@ -411,14 +420,27 @@ Resultado esperado: TRANSACCIÓN RECHAZADA
 ```txt
 ferremas-mvp/
 │
-├── modelo/
-│     ├── conexion.py
-│     ├── database.sql
-│     ├── init_db.py
-│     ├── producto_model.py
-│     ├── seed_data.py
-│     ├── usuario_model.py
-│     └── utils.py
+├── modelo/  ← Scaffolding de pruebas (shims para tests unitarios/integración)
+│     ├── conexion.py        (shim: en producción lanza RuntimeError; los tests lo parchean)
+│     ├── producto_model.py  (funciones de productos usadas por app.py y tests)
+│     ├── usuario_model.py   (funciones de usuarios usadas por app.py y tests)
+│     └── utils.py           (formateo de respuestas)
+│
+│   NOTA: la versión canónica del modelo (BD real) está en ferremas-api/modelo/
+│
+├── test/
+│     ├── __init__.py
+│     ├── test_setup.py          (crea DB SQLite temporal para tests)
+│     ├── test_productos.py      (tests unitarios de productos)
+│     ├── test_extra.py          (tests unitarios extras)
+│     ├── test_integracion.py    (tests de integración + mocks Webpay/divisa)
+│     ├── test_more.py           (tests adicionales de integración)
+│     ├── mock_server.py         (mock de Webpay y banco central/mindicador)
+│     ├── locustfile.py          (escenario Locust para carga y estrés)
+│     ├── resultados/            (CSVs y evidencias de Locust)
+│     ├── README.md              (guía de tests)
+│     ├── DESCRIPCION_TESTS.md   (detalle de cada test)
+│     └── TESTS_REPORT.md        (reporte de resultados)
 │
 ├── vista/
 │     ├── css/
@@ -440,7 +462,7 @@ ferremas-mvp/
 Cada vez que se instale una nueva librería ejecutar:
 
 ```bash
-pip freeze > requirements.txt
+python -m pip freeze > requirements.txt
 ```
 
 Luego subir los cambios al repositorio.
@@ -452,13 +474,13 @@ Luego subir los cambios al repositorio.
 Ejemplo:
 
 ```bash
-pip install flask-cors
+python -m pip install flask-cors
 ```
 
 Actualizar requirements:
 
 ```bash
-pip freeze > requirements.txt
+python -m pip freeze > requirements.txt
 ```
 
 ---
@@ -518,7 +540,7 @@ git pull
 Instalar:
 
 ```bash
-pip install flask-cors
+python -m pip install flask-cors
 ```
 
 ---
@@ -528,7 +550,7 @@ pip install flask-cors
 Instalar:
 
 ```bash
-pip install flask
+python -m pip install flask
 ```
 
 ---
@@ -549,8 +571,11 @@ habilitada.
 
 - No subir la carpeta `venv/`
 - No subir archivos `.db`
-- Mantener actualizado `requirements.txt`
-- Ejecutar primero `ferremas-api`
+- Mantener actualizado `requirements.txt` con `python -m pip freeze > requirements.txt`
+- Ejecutar primero `ferremas-api` (puerto 5002), luego `ferremas-mvp` (puerto 5003)
 - Verificar que ambos puertos estén disponibles
+- La base de datos se inicializa SOLO en `ferremas-api` con `python modelo/init_db.py`
+- Para ejecutar los tests NO es necesario levantar `ferremas-api` (usan mock y BD temporal)
+- Si `pip` falla por launcher en Windows, siempre usar `python -m pip ...`
 
 ---

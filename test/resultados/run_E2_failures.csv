@@ -1,0 +1,7 @@
+﻿Method,Name,Error,Occurrences
+GET,GET /productos,"HTTPConnectionPool(host='127.0.0.1', port=5002): Read timed out. (read timeout=5)",987
+GET,GET /productos,"ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host')",300
+POST,POST /login,"HTTPConnectionPool(host='127.0.0.1', port=5002): Read timed out. (read timeout=5)",1830
+POST,POST /login,"ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host')",511
+POST,POST /carrito/checkout,"HTTPConnectionPool(host='127.0.0.1', port=5002): Read timed out. (read timeout=5)",718
+POST,POST /carrito/checkout,"ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host')",200

@@ -1,65 +1,61 @@
-import sqlite3
-import logging
+# SHIM: La lógica real de la base de datos ahora se gestiona en ferremas-api (modelo/conexion.py).
+# Este archivo expone la misma interfaz (conectar, ejecutar_consulta) pero por defecto
+# lanza un error informativo para recordar que la BD real debe consultarse vía ferremas-api.
+# Tests unitarios pueden parchear modelo.conexion.conectar para usar una DB temporal.
 
-DATABASE = 'ferremas.db'
+import logging
+import os
+
 logger = logging.getLogger(__name__)
 
 
 def conectar():
     """
-    Establece conexión con la base de datos SQLite.
-    
-    Returns:
-        sqlite3.Connection: Conexión a la BD
-        
+    Placeholder conectar() en ferremas-mvp. No conecta a la BD local. Tests pueden parchear esta
+    función para proporcionar una conexión a un archivo SQLite temporal.
+
     Raises:
-        Exception: Si hay error en la conexión
+        RuntimeError: Indica que la lógica real quedó en ferremas-api
     """
-    try:
-        conexion = sqlite3.connect(DATABASE)
-        conexion.row_factory = sqlite3.Row
-        return conexion
-    except sqlite3.Error as e:
-        logger.error(f"Error conectando a BD: {e}")
-        raise Exception(f"No se pudo conectar a la base de datos: {str(e)}")
+    raise RuntimeError(
+        "La lógica de la base de datos real fue movida a ferremas-api.\n"
+        "Para ejecutar acciones sobre la BD en producción, use ferremas-api.\n"
+        "En pruebas, parchea modelo.conexion.conectar para devolver una conexión SQLite temporal."
+    )
 
 
 def ejecutar_consulta(query, params=None, fetch_one=False):
     """
-    Ejecuta una consulta SQL y retorna resultados de forma segura.
-    
+    Ejecuta una consulta usando la función conectar().
+    - En ejecución normal `conectar()` lanza RuntimeError (la BD real está en ferremas-api).
+    - En tests, `modelo.conexion.conectar` debe ser parcheada para devolver una conexión sqlite3 a un archivo temporal.
+
     Args:
-        query (str): Consulta SQL
-        params (tuple): Parámetros para prevenir SQL injection
-        fetch_one (bool): Si True, retorna un registro; si False, retorna todos
-        
+        query (str): SQL a ejecutar
+        params (tuple|list|None): parámetros para la consulta
+        fetch_one (bool): si True devuelve un solo registro como dict; si False devuelve lista de dicts o None para DML
+
     Returns:
-        Row o list: Resultado(s) de la consulta
-        
-    Raises:
-        Exception: Si hay error en la BD
+        dict|list|None
     """
-    conexion = None
-    try:
-        conexion = conectar()
-        cursor = conexion.cursor()
-        
-        if params:
-            cursor.execute(query, params)
-        else:
-            cursor.execute(query)
-        
+    conn = conectar()  # En tests se parchea para devolver conexión válida
+    cursor = conn.cursor()
+    params = params or ()
+    cursor.execute(query, params)
+
+    if query.strip().lower().startswith('select'):
+        rows = cursor.fetchall()
+        # Si no hay descripción, devolver lista vacía
+        if not cursor.description:
+            return []
+        cols = [d[0] for d in cursor.description]
         if fetch_one:
-            resultado = cursor.fetchone()
+            if not rows:
+                return None
+            return dict(zip(cols, rows[0]))
         else:
-            resultado = cursor.fetchall()
-        
-        conexion.commit()
-        return resultado
-    
-    except sqlite3.Error as e:
-        logger.error(f"Error ejecutando consulta: {e}")
-        raise Exception(f"Error en la base de datos: {str(e)}")
-    finally:
-        if conexion:
-            conexion.close()
+            return [dict(zip(cols, r)) for r in rows]
+    else:
+        # INSERT/UPDATE/DELETE
+        conn.commit()
+        return None

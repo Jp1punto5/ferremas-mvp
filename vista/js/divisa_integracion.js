@@ -16,32 +16,56 @@ async function obtenerTasaCambio() {
      * Returns:
      *   Object: { exito: boolean, tasa: number, fecha: string, error?: string }
      */
+    const PRIMARY = 'http://127.0.0.1:5002/dolar';
+    const MOCK = 'http://127.0.0.1:5050/api/dolar';
+
+    async function _fetchUrl(url) {
+        const r = await fetch(url);
+        if (!r.ok) throw new Error(`Error HTTP: ${r.status}`);
+        const d = await r.json();
+        if (d.error) throw new Error(d.error || 'Error en respuesta');
+        return d;
+    }
+
     try {
-        const respuesta = await fetch('http://127.0.0.1:5002/dolar');
-        // visualizamos la respuesta en consola (object)
-        console.log("Respuesta API mindicador.cl = ", respuesta);
-        
-        if (!respuesta.ok) {
-            throw new Error(`Error HTTP: ${respuesta.status}`);
+        // Intentar la URL primaria (ferremas-api)
+        let datos = null;
+        try {
+            const respuesta = await _fetchUrl(PRIMARY);
+            datos = respuesta;
+            console.log("Usando ferremas-api para tasa de cambio");
+        } catch (errPrimary) {
+            console.warn('ferremas-api no disponible o dio error, usando mock:', errPrimary.message);
+            // Intentar el mock
+            const respuestaMock = await _fetchUrl(MOCK);
+            datos = respuestaMock;
         }
-        
-        const datos = await respuesta.json();
-        console.log("respuesta Json = ", datos);
-        
-        if (datos.error) {
-            throw new Error(datos.error);
+
+        // Compatibilidad: mindicador.cl y nuestro mock retornan estructura con 'serie' o con {valor, fecha}
+        let tasaCambio = null;
+        let fecha = null;
+        if (datos.serie && datos.serie.length) {
+            tasaCambio = datos.serie[0].valor || datos.serie[0].valor || datos.serie[0].valor;
+            fecha = datos.serie[0].fecha;
+        } else if (datos.valor) {
+            tasaCambio = datos.valor;
+            fecha = datos.fecha || new Date().toISOString();
+        } else if (datos[0] && datos[0].valor) {
+            tasaCambio = datos[0].valor;
+            fecha = datos[0].fecha || new Date().toISOString();
+        } else if (datos.serie && datos.serie[0] && datos.serie[0].valor) {
+            tasaCambio = datos.serie[0].valor;
+            fecha = datos.serie[0].fecha;
         }
-        
-        const tasaCambio = datos.valor;
-        const fecha = datos.fecha;
-        
+
+        if (!tasaCambio) throw new Error('No se pudo leer tasa de cambio de la respuesta');
+
         console.log(`✅ Tasa de cambio obtenida: 1 CLP = ${tasaCambio} USD (${fecha})`);
-        
         return {
             exito: true,
             tasa: tasaCambio,
             fecha: fecha,
-            origen: 'mindicador.cl'
+            origen: 'externo'
         };
     } catch (error) {
         console.error('❌ Error obteniendo tasa de cambio:', error);
@@ -71,7 +95,7 @@ async function actualizarPreciosUSD(tasaCambio) {
      */
     try {
         const respuesta = await fetch(
-            'http://127.0.0.1:5003/actualizar-precios-usd',
+            'http://127.0.0.1:5002/actualizar-precios-usd',
             {
                 method: 'POST',
                 headers: {
@@ -125,7 +149,7 @@ async function actualizarPrecioIndividual(codigoProducto, tasaCambio) {
      */
     try {
         const respuesta = await fetch(
-            `http://127.0.0.1:5003/actualizar-precio-usd/${codigoProducto}`,
+            `http://127.0.0.1:5002/actualizar-precio-usd/${codigoProducto}`,
             {
                 method: 'POST',
                 headers: {
