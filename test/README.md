@@ -53,49 +53,6 @@ Ninguno de los 27 tests hace llamadas HTTP al puerto 5002.
 
 ---
 
-## Cambio en estrategia de carga/estrés
-
-Por petición del profesor, las pruebas de carga y estrés deben mostrar claramente el límite del servicio (por ejemplo: "hasta 300 conexiones concurrentes funciona; 301 rompe"). Para obtener esta información de forma fiable se recomienda usar herramientas externas de benchmarking en lugar de bucles for en tests unitarios.
-
-Herramientas recomendadas (instalación rápida):
-- Locust (Python, recomendado para pruebas controladas y escenarios):
-  - Dependencia gestionada por `requirements.txt` (no requiere instalación manual adicional si ya ejecutaste `python -m pip install -r requirements.txt`).
-  - Uso básico headless (ejemplo):
-
-    1) Usar el archivo ya incluido: `test/locustfile.py`
-
-    2) Ejecutar en modo headless para encontrar el umbral (ejemplo):
-       `python -m locust -f test/locustfile.py --headless -u 300 -r 10 --run-time 2m --host http://127.0.0.1:5002`
-
-    - `-u 300` número total de usuarios simulados
-    - `-r 10` spawn rate (usuarios/s)
-    - Aumenta `-u` hasta que el error rate o latencia supere el umbral esperado — ese valor es el límite práctico.
-
-- hey (simple y rápido, Go binary):
-  - Instalar (si tienes Go): `go install github.com/rakyll/hey@latest` o descargar binario.
-  - Uso ejemplo para 10.000 peticiones con 300 concurrentes:
-    `hey -n 10000 -c 300 http://127.0.0.1:5002/productos`
-  - Interpreta: si la mayoría de peticiones pasan y latencia es aceptable, sube `-c` hasta fallo.
-
-- wrk (muy eficiente, Linux/macOS; hay builds para Windows):
-  - Ejemplo: `wrk -t12 -c300 -d30s http://127.0.0.1:5002/productos`
-
-Recomendación de procedimiento para determinar límite (metodología reproducible):
-1. Instrumentar el servicio (logs y health) y arrancar ferremas-api en un hardware controlado.
-2. Ejecutar una serie de runs con creciente concurrencia (por ejemplo: 50, 100, 150, 200, 250, 300, 350).
-3. Registrar para cada run:
-   - concurrencia (concurrent clients)
-   - RPS (requests per second)
-   - latencia p50/p95/p99
-   - tasa de errores (error %)
-4. Definir criterio de fallo (ej.: error% > 1% o p95 > 2s). El primer valor que viola criterio se considera "rompe".
-5. Reportar el umbral: el último valor antes de romper se documenta como límite.
-
-Cómo presentar resultados al profesor
-- Preparar una tabla con columnas: Concurrentes | RPS | p50 | p95 | p99 | Error% | Observaciones
-- Adjuntar el comando exacto usado y el entorno (CPU/RAM, puerto, versiones).
-- Si se desea, generar un gráfico simple (Excel/Word) con latencia vs concurrencia.
-
 > Los archivos `test_carga.py` y `test_estres.py` han sido **eliminados**. La herramienta oficial para pruebas de carga y estrés es **Locust** (`test/locustfile.py`).
 
 ---
